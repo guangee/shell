@@ -21,6 +21,7 @@ RUN yes | /opt/android/tools/bin/sdkmanager --licenses
 
 RUN apt install git -y
 RUN git clone https://git.coding-space.cn/jiaochenyu/jiaochenyu-blog.git app
-RUN pwd
+RUN cd app && git checkout dev_gwm
+RUN bash build.sh
 
 CMD ["java","-version"]
