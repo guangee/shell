@@ -24,4 +24,4 @@ RUN apt install git -y
 
 RUN git clone https://git.coding-space.cn/jiaochenyu/phone_list_android.git app
 RUN cd /app && git checkout dev_gwm
-CMD ["bash","/app/build.sh"]
+CMD ["cd","/app","&&","bash","/app/build.sh"]
