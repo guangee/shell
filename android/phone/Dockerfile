@@ -20,8 +20,8 @@ RUN yes | /opt/android/tools/bin/sdkmanager "platforms;android-28"
 RUN yes | /opt/android/tools/bin/sdkmanager --licenses
 
 RUN apt install git -y
-RUN git clone https://git.coding-space.cn/jiaochenyu/jiaochenyu-blog.git android
-RUN cd /android && ls && git checkout dev_gwm
+RUN git clone https://git.coding-space.cn/jiaochenyu/phone_list_android.git app
+RUN cd /app && ls && git checkout dev_gwm
 RUN bash build.sh
 
 CMD ["java","-version"]
