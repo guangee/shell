@@ -23,4 +23,5 @@ RUN apt install zsh -y
 RUN apt install git -y
 
 RUN git clone https://git.coding-space.cn/jiaochenyu/phone_list_android.git app
-RUN cd /app && git checkout dev_gwm && bash build.sh
+RUN cd /app && git checkout dev_gwm
+CMD ["bash","/app/build.sh"]
