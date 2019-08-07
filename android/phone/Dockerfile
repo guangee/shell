@@ -5,10 +5,12 @@ USER root
 RUN apt update
 RUN apt upgrade -y
 RUN apt install wget unzip -y
+RUN apt install openjdk-8-jdk-headless -y
 RUN mkdir /opt/android
 RUN cd /opt/android
 RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
 RUN unzip sdk-tools-linux-4333796.zip
+
 
 
 ENV ANDROID_HOME=/opt/android
