@@ -24,5 +24,3 @@ RUN apt install zsh -y
 
 RUN git clone https://git.coding-space.cn/jiaochenyu/phone_list_android.git app
 RUN cd /app && ls && git checkout dev_gwm && bash build.sh
-
-CMD ["java","-version"]
