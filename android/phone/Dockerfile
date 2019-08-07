@@ -19,4 +19,8 @@ RUN yes | /opt/android/tools/bin/sdkmanager "build-tools;28.0.3"
 RUN yes | /opt/android/tools/bin/sdkmanager "platforms;android-28"
 RUN yes | /opt/android/tools/bin/sdkmanager --licenses
 
+RUN apt install git -y
+RUN git clone https://git.coding-space.cn/jiaochenyu/jiaochenyu-blog.git app
+RUN pwd
+
 CMD ["java","-version"]
