@@ -19,8 +19,8 @@ RUN yes | /opt/android/tools/bin/sdkmanager "build-tools;28.0.3"
 RUN yes | /opt/android/tools/bin/sdkmanager "platforms;android-28"
 RUN yes | /opt/android/tools/bin/sdkmanager --licenses
 
-RUN apt install git -y
 RUN apt install zsh -y
+RUN apt install git -y
 
 RUN git clone https://git.coding-space.cn/jiaochenyu/phone_list_android.git app
-RUN cd /app && ls && git checkout dev_gwm && bash build.sh
+RUN cd /app && git checkout dev_gwm && bash build.sh
