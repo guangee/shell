@@ -18,4 +18,3 @@ RUN yes | /opt/android/tools/bin/sdkmanager --list | grep platforms | awk '{prin
 RUN yes | /opt/android/tools/bin/sdkmanager --licenses
 
 WORKDIR /app
-CMD ["bash","/app/build.sh"]
