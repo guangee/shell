@@ -3,11 +3,9 @@ RUN echo "Asia/Shanghai" > /etc/timezone
 USER root
 ADD sources.list /etc/apt/sources.list
 
-RUN apt update && sudo apt-get install -y ca-certificates curl software-properties-common apt-transport-https curl
+RUN apt update && sudo apt install -y ca-certificates curl software-properties-common apt-transport-https curl
 RUN curl -s https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | sudo apt-key add -
-RUN tee /etc/apt/sources.list.d/kubernetes.list <<EOF
-    deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main
-    EOF
+ADD k8s.list /etc/apt/sources.list.d/k8s.list
 
 RUN apt update
 RUN apt upgrade -y
