@@ -10,4 +10,4 @@ deb http://mirrors.cloud.aliyuncs.com/ubuntu focal-security main
 deb-src http://mirrors.cloud.aliyuncs.com/ubuntu focal-security main
 deb http://mirrors.cloud.aliyuncs.com/ubuntu focal-security universe
 deb-src http://mirrors.cloud.aliyuncs.com/ubuntu focal-security universe
-deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main
+#deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main
