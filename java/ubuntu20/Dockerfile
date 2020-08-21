@@ -4,7 +4,7 @@ USER root
 ADD sources.list /etc/apt/sources.list
 
 RUN apt update && apt install -y apt-transport-https curl
-RUN curl -s https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | sudo apt-key add -
+RUN curl -s https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt add -
 ADD k8s.list /etc/apt/sources.list.d/k8s.list
 
 RUN apt update
