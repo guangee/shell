@@ -3,7 +3,7 @@ RUN echo "Asia/Shanghai" > /etc/timezone
 USER root
 ADD sources.list /etc/apt/sources.list
 
-RUN apt update && apt install -y ca-certificates curl software-properties-common apt-transport-https curl
+RUN apt update && apt install -y apt-transport-https curl
 RUN curl -s https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | sudo apt-key add -
 ADD k8s.list /etc/apt/sources.list.d/k8s.list
 
