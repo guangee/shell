@@ -9,6 +9,4 @@ RUN curl -s https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key 
 RUN echo "deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
 RUN apt update
 RUN apt upgrade -y
-RUN apt install git -y
-RUN apt install wget unzip -y
-RUN apt install openjdk-8-jdk-headless -y
+RUN apt install -y git wget unzip openjdk-8-jdk-headless
