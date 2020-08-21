@@ -10,3 +10,5 @@ RUN echo "deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main"
 RUN apt update
 RUN apt upgrade -y
 RUN apt install -y git wget unzip openjdk-8-jdk-headless
+RUN apt install -y kubectl
+RUN kubectl get pods
