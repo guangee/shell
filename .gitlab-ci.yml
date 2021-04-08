@@ -1,4 +1,5 @@
 stages:
+  - maven
   - android
 
 maven-package:
