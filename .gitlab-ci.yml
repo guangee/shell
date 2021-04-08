@@ -10,4 +10,7 @@ maven-package:
     - docker login registry.cn-beijing.aliyuncs.com -u roma@guanweiming.com -p gwm302735803
     - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8 ./maven/jdk8
     - docker push registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8
+    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:1.0 ./android/phone
+    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:1.0
+
 
