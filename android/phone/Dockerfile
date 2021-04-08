@@ -13,6 +13,7 @@ RUN cd /opt/android && wget https://dl.google.com/android/repository/sdk-tools-l
 ENV ANDROID_HOME=/opt/android
 
 RUN yes | /opt/android/tools/bin/sdkmanager "platform-tools"
+RUN yes | /opt/android/tools/bin/sdkmanager --licenses
 RUN yes | /opt/android/tools/bin/sdkmanager --list | grep build-tools | awk '{print $1}' | xargs /opt/android/tools/bin/sdkmanager
 RUN yes | /opt/android/tools/bin/sdkmanager --list | grep platforms | awk '{print $1}' | xargs /opt/android/tools/bin/sdkmanager
 RUN yes | /opt/android/tools/bin/sdkmanager --licenses
