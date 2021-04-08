@@ -1,0 +1,13 @@
+stages:
+  - package
+
+maven-package:
+  image: maven:3.5-jdk-8
+  tags:
+    - docker
+  stage: package
+  script:
+    - docker login registry.cn-beijing.aliyuncs.com -u roma@guanweiming.com -p gwm302735803
+    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8 ./maven/jdk8
+    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8
+
