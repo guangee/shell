@@ -8,9 +8,13 @@ maven-package:
     - docker
   stage: maven
   script:
-    - docker login registry.cn-beijing.aliyuncs.com -u roma@guanweiming.com -p gwm302735803
-    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8 ./maven/jdk8
-    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8
+    - echo ${docker_password} | docker login registry.cn-beijing.aliyuncs.com -u ${docker_username} --password-stdin
+#    - docker login registry.cn-beijing.aliyuncs.com -u roma@guanweiming.com -p gwm302735803
+    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.8.1-openjdk-11 ./maven/jdk11
+    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.8.1-openjdk-11
+#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8 ./maven/jdk8
+#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8
+
 
 android-package:
   image: maven:3.5-jdk-8
