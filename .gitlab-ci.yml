@@ -10,8 +10,8 @@ maven-package:
   script:
     - echo ${docker_password} | docker login registry.cn-beijing.aliyuncs.com -u ${docker_username} --password-stdin
 #    - docker login registry.cn-beijing.aliyuncs.com -u roma@guanweiming.com -p gwm302735803
-    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.8.1-openjdk-11 ./maven/jdk11
-    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.8.1-openjdk-11
+#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.8.1-openjdk-11 ./maven/jdk11
+#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.8.1-openjdk-11
 #    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8 ./maven/jdk8
 #    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8
 
@@ -22,8 +22,8 @@ android-package:
     - docker
   stage: android
   script:
-    - docker login registry.cn-beijing.aliyuncs.com -u roma@guanweiming.com -p gwm302735803
-    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:1.0 ./android/phone
-    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:1.0
+    - echo ${docker_password} | docker login registry.cn-beijing.aliyuncs.com -u ${docker_username} --password-stdin
+    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3 ./android/30.0.3
+    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3
 
 
