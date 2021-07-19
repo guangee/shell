@@ -5,7 +5,7 @@ ADD sources.list /etc/apt/sources.list
 
 RUN apt update
 RUN apt upgrade -y
-RUN apt install openjdk-8-jdk-headless -y
+RUN apt install openjdk-8-jdk-headless wget unzip -y -y
 RUN mkdir /opt/android
 RUN cd /opt/android && wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip && unzip sdk-tools-linux-4333796.zip
 
