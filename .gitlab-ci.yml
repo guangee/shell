@@ -17,7 +17,7 @@ maven-package:
 
 
 android-package:
-  image: maven:3.5-jdk-8
+  image: registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8
   tags:
     - docker
   stage: android
