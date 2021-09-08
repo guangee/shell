@@ -35,7 +35,7 @@ gitlab-runner register --non-interactive \
     --docker-volumes "/root/runner/.kube/config:/.kube/config" \
     --docker-volumes "/usr/bin/docker:/usr/bin/docker" \
     --docker-volumes "/var/run/docker.sock:/var/run/docker.sock" \
-    --docker-volumes "/usr/local/bin/kubectl:/usr/local/bin/kubectl" \
+    --docker-volumes "/usr/bin/kubectl:/usr/bin/kubectl" \
     --config "/etc/gitlab-runner/config.toml" \
     --docker-tlsverify false
 
