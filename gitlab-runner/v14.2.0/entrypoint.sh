@@ -28,7 +28,11 @@ gitlab-runner register --non-interactive \
     --run-untagged=true \
     --executor docker \
     --builds-dir /home/gitlab-runner \
-    --config "/etc/gitlab-runner/config.toml"
+    --docker-pull-policy if-not-present \
+    --docker-image ubuntu:20.04 \
+    --docker-volumes ["/cache","/root/runner/.m2:/root/.m2:rw","/root/runner/.gradle:/root/.gradle","/root/runner/.kube/config:/.kube/config","/usr/bin/docker:/usr/bin/docker","/var/run/docker.sock:/var/run/docker.sock","/usr/local/bin/kubectl:/usr/local/bin/kubectl"] \
+    --config "/etc/gitlab-runner/config.toml" \
+    --docker-tlsverify false
 
 echo "gitlab-runner register finish" | tee /demo.txt
 
