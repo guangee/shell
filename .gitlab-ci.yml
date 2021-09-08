@@ -14,6 +14,8 @@ maven-package:
 #    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.8.1-openjdk-11
 #    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8 ./maven/jdk8
 #    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8
+    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0 ./gitlab-runner/v14.2.0
+    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0
 
 
 android-package:
@@ -23,16 +25,16 @@ android-package:
   stage: android
   script:
     - echo ${docker_password} | docker login registry.cn-beijing.aliyuncs.com -u ${docker_username} --password-stdin
-    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:31.0.0 ./android/31.0.0
-    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:31.0.0
-    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3 ./android/30.0.3
-    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3
-    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:29.0.3 ./android/29.0.3
-    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:29.0.3
-    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:28.0.3 ./android/28.0.3
-    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:28.0.3
-    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:28.0.2 ./android/28.0.2
-    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:28.0.2
+#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:31.0.0 ./android/31.0.0
+#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:31.0.0
+#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3 ./android/30.0.3
+#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3
+#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:29.0.3 ./android/29.0.3
+#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:29.0.3
+#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:28.0.3 ./android/28.0.3
+#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:28.0.3
+#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:28.0.2 ./android/28.0.2
+#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:28.0.2
 
 
 
