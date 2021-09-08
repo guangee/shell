@@ -30,7 +30,12 @@ gitlab-runner register --non-interactive \
     --builds-dir /home/gitlab-runner \
     --docker-pull-policy if-not-present \
     --docker-image ubuntu:20.04 \
-    --docker-volumes ["/cache","/root/runner/.m2:/root/.m2:rw","/root/runner/.gradle:/root/.gradle","/root/runner/.kube/config:/.kube/config","/usr/bin/docker:/usr/bin/docker","/var/run/docker.sock:/var/run/docker.sock","/usr/local/bin/kubectl:/usr/local/bin/kubectl"] \
+    --docker-volumes "/root/runner/.m2:/root/.m2:rw" \
+    --docker-volumes "/root/runner/.gradle:/root/.gradle" \
+    --docker-volumes "/root/runner/.kube/config:/.kube/config" \
+    --docker-volumes "/usr/bin/docker:/usr/bin/docker" \
+    --docker-volumes "/var/run/docker.sock:/var/run/docker.sock" \
+    --docker-volumes "/usr/local/bin/kubectl:/usr/local/bin/kubectl" \
     --config "/etc/gitlab-runner/config.toml" \
     --docker-tlsverify false
 
