@@ -19,5 +19,18 @@ fi
 
 echo "hello" | tee /demo.txt
 
+
+gitlab-runner register --non-interactive \
+    --url ${GITLAB_URL}/ci \
+    --registration-token ${CI_TOKEN} \
+    --name runner-prod \
+    --tag-list ${TAG_NAME} \
+    --run-untagged=true \
+    --executor docker \
+    --builds-dir /home/gitlab-runner \
+    --config "/etc/gitlab-runner/config.toml"
+
+echo "gitlab-runner register finish" | tee /demo.txt
+
 # launch gitlab-runner passing all arguments
 exec gitlab-runner "$@"
