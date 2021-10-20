@@ -17,3 +17,7 @@ registry.cn-beijing.aliyuncs.com/guanweiming/android:1.0
 
 * registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:8u302-jre
 * registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11.0.12-jre
+
+##### maven
+
+* registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.5-jdk-8
