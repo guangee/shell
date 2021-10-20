@@ -22,3 +22,5 @@ registry.cn-beijing.aliyuncs.com/guanweiming/android:1.0
 
 * registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.5-jdk-8
 * registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8
+* registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.1-openjdk-11
+* registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-11
