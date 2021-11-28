@@ -1,12 +1,11 @@
 stages:
-  - maven
-  - android
+  - package
 
 maven-package:
   image: maven:3.5-jdk-8
   tags:
     - pre
-  stage: maven
+  stage: package
   script:
     - echo ${docker_password} | docker login registry.cn-beijing.aliyuncs.com -u ${docker_username} --password-stdin
 #    - docker login registry.cn-beijing.aliyuncs.com -u roma@guanweiming.com -p gwm302735803
@@ -22,7 +21,7 @@ android-package:
   image: registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8
   tags:
     - pre
-  stage: android
+  stage: package
   script:
     - echo ${docker_password} | docker login registry.cn-beijing.aliyuncs.com -u ${docker_username} --password-stdin
 #    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:31.0.0 ./android/31.0.0
