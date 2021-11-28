@@ -13,7 +13,7 @@ maven-package:
     - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8
 
 android-package:
-  image: registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8
+  image: registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8
   tags:
     - pre
   stage: package
@@ -34,7 +34,7 @@ android-package:
 
 
 runner-package:
-  image: registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8
+  image: registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8
   tags:
     - pre
   stage: package
