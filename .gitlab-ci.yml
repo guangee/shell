@@ -20,6 +20,7 @@ android-package:
   script:
     - echo ${docker_password} | docker login registry.cn-beijing.aliyuncs.com -u ${docker_username} --password-stdin
     - ls /root/.m2
+    - ls /root/.m2
 #    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:31.0.0 ./android/31.0.0
 #    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:31.0.0
 #    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3 ./android/30.0.3
