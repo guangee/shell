@@ -1,21 +1,16 @@
 stages:
+  - maven
   - package
 
 maven-package:
   image: maven:3.5-jdk-8
   tags:
     - pre
-  stage: package
+  stage: maven
   script:
-    - echo ${docker_password} | docker login registry.cn-beijing.aliyuncs.com -u ${docker_username} --password-stdin
-#    - docker login registry.cn-beijing.aliyuncs.com -u roma@guanweiming.com -p gwm302735803
-#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.8.1-openjdk-11 ./maven/jdk11
-#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.8.1-openjdk-11
-#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8 ./maven/jdk8
-#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8
-    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0 ./gitlab-runner/v14.2.0
-    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0
-
+    - echo ${docker_password} | docker login registry.cn-zhangjiakou.aliyuncs.com -u ${docker_username} --password-stdin
+    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8 maven/jdk8
+    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8
 
 android-package:
   image: registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8
@@ -24,6 +19,7 @@ android-package:
   stage: package
   script:
     - echo ${docker_password} | docker login registry.cn-beijing.aliyuncs.com -u ${docker_username} --password-stdin
+    - ls /root/.m2
 #    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:31.0.0 ./android/31.0.0
 #    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:31.0.0
 #    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3 ./android/30.0.3
@@ -37,5 +33,12 @@ android-package:
 
 
 
-
-
+runner-package:
+  image: registry.cn-beijing.aliyuncs.com/guanweiming/maven:3.5-jdk-8
+  tags:
+    - pre
+  stage: package
+  script:
+    - echo ${docker_password} | docker login registry.cn-beijing.aliyuncs.com -u ${docker_username} --password-stdin
+#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0 ./gitlab-runner/v14.2.0
+#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0
