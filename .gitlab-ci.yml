@@ -45,6 +45,9 @@ runner-package:
     - pre
   stage: package
   script:
-    - echo ${docker_password} | docker login registry.cn-beijing.aliyuncs.com -u ${docker_username} --password-stdin
+    - echo ${docker_password} | docker login registry.cn-zhangjiakou.aliyuncs.com -u ${docker_username} --password-stdin
+    - docker pull bitnami/kubectl:latest
+    - docker tag bitnami/kubectl:latest registry.cn-zhangjiakou.aliyuncs.com/guanweiming/kubectl:latest
+    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/kubectl:latest
 #    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0 ./gitlab-runner/v14.2.0
 #    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0
