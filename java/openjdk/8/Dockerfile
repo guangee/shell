@@ -1,4 +1,4 @@
-FROM 8u312-jre-slim-buster
+FROM openjdk:8u312-jre-slim-buster
 # 修改docker时间为东八区
 RUN echo "Asia/Shanghai" > /etc/timezone
 # 修改镜像源为阿里云
