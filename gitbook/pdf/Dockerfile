@@ -9,7 +9,7 @@ RUN echo "deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main universe" >> 
 WORKDIR /book
 # 安装node
 RUN apt update && apt install -y curl wget
-ENV NODE_VERSION_NUM                v12.22.9
+ENV NODE_VERSION_NUM                v14.18.1
 ENV NODE_VERSION                    node-${NODE_VERSION_NUM}
 RUN mkdir -p /opt/node \
     && cd /opt/node \
