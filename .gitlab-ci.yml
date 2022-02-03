@@ -72,5 +72,5 @@ runner-gitbook:
 #    - docker pull bitnami/kubectl:latest
 #    - docker tag bitnami/kubectl:latest registry.cn-zhangjiakou.aliyuncs.com/guanweiming/kubectl:latest
 #    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/kubectl:latest
-    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitbook-pdf:v1.4 ./gitbook/pdf
-    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitbook-pdf:v1.4
+    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitbook-pdf:v1.5 ./gitbook/pdf
+    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitbook-pdf:v1.5
