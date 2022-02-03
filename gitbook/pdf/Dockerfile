@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:14.11
 RUN echo "Asia/Shanghai" > /etc/timezone
 RUN cat /etc/apt/sources.list
 # 修改镜像源为阿里云
@@ -8,8 +8,8 @@ RUN echo "deb http://mirrors.aliyun.com/debian jessie-updates main" >> /etc/apt/
 WORKDIR /book
 
 RUN npm --version
-RUN apt update && apt install -y calibre
 RUN npm install -g gitbook-cli
 RUN gitbook --version
+RUN apt update && apt install -y calibre
 ADD simsun.ttc /usr/share/fonts/truetype/
 RUN apt install -y exiftool
