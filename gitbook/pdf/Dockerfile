@@ -16,6 +16,7 @@ RUN echo "deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main universe" >> 
 WORKDIR /book
 RUN apt update && apt install -y curl wget
 RUN wget https://registry.npmmirror.com/-/binary/node/v16.13.2/node-v16.13.2-linux-x64.tar.gz
+RUN mkdir -p /opt/node
 RUN tar -xzvf node-v16.13.2-linux-x64.tar.gz /opt/node
 RUN ls /opt/node
 RUN export NODE_HOME=/opt/node \
