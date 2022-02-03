@@ -30,7 +30,7 @@ RUN npm install -g yarn
 ADD simsun.ttc /usr/share/fonts/truetype/
 RUN yum install -y epel-release
 RUN yum install -y snapd
-RUN systemctl enable --now snapd.socket
+# RUN systemctl enable --now snapd.socket
 RUN ln -s /var/lib/snapd/snap /snap
 RUN snap install -y calibre --edge
 RUN yum install -y calibre
