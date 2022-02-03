@@ -1,5 +1,6 @@
-FROM ubuntu:16.04
+FROM node:9.11
 RUN echo "Asia/Shanghai" > /etc/timezone
+RUN cat /etc/apt/sources.list
 # 修改镜像源为阿里云
 RUN echo "deb http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse" > /etc/apt/sources.list
 RUN echo "deb http://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse" >> /etc/apt/sources.list
