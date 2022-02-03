@@ -33,6 +33,6 @@ RUN gitbook --version
 RUN apt install -y exiftool
 RUN npm install -g yarn
 ADD simsun.ttc /usr/share/fonts/truetype/
-
+RUN apt install -y --no-install-recommends calibre
 #RUN apt update
 #RUN apt install -y calibre
