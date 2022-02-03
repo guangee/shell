@@ -16,7 +16,7 @@ RUN echo "deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main universe" >> 
 WORKDIR /book
 
 RUN apt update
-RUN apt install -y npm
+RUN apt install -y nodejs
 
 
 RUN npm --version
