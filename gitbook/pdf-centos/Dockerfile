@@ -28,4 +28,4 @@ RUN gitbook --version
 #RUN yum install -y exiftool
 RUN npm install -g yarn
 ADD simsun.ttc /usr/share/fonts/truetype/
-RUN yum install -y --no-install-recommends calibre
+RUN yum install -y calibre
