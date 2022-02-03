@@ -39,6 +39,6 @@ RUN gitbook --version
 RUN apt update
 #RUN apt install -y libpython2.7 libpython2.7-stdlib
 #RUN apt install -y calibre-bin
-#RUN apt install -y calibre
+RUN apt install -y calibre
 RUN apt install -y exiftool
 ADD simsun.ttc /usr/share/fonts/truetype/
