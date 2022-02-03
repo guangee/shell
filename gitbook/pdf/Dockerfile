@@ -6,6 +6,7 @@ RUN echo "deb https://mirrors.aliyun.com/debian jessie main" > /etc/apt/sources.
 RUN echo "deb https://mirrors.aliyun.com/debian jessie-updates main" >> /etc/apt/sources.list
 
 RUN npm --version
+RUN apt-get install apt-transport-https -y
 RUN apt update
 RUN npm install -g gitbook-cli
 RUN gitbook --version
