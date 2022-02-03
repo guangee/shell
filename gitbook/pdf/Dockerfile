@@ -35,7 +35,7 @@ RUN echo $PATH
 RUN npm --version
 RUN npm install -g gitbook-cli
 RUN gitbook --version
-RUN sed -i "287d" /usr/local/lib/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js
+RUN sed -i "287d" /opt/node/node-v16.13.2-linux-x64/lib/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js
 RUN gitbook --version
 RUN apt update
 #RUN apt install -y libpython2.7 libpython2.7-stdlib
