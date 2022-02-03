@@ -1,0 +1,11 @@
+FROM ubuntu:20.04
+RUN echo "Asia/Shanghai" > /etc/timezone
+# 修改镜像源为阿里云
+RUN echo "deb https://mirrors.aliyun.com/ubuntu focal main" > /etc/apt/sources.list
+RUN echo "deb https://mirrors.aliyun.com/ubuntu focal-updates main" >> /etc/apt/sources.list
+
+RUN curl -sL https://deb.nodesource.com/setup_14.x |  bash -
+RUN apt install -y nodejs
+RUN npm --version
+RUN npm install -g gitbook-cli gitbook
+RUN gitbook --version
