@@ -27,7 +27,8 @@ ENV NODE_PATH $PATH:$NODE_HOME/lib/node_modules
 
 RUN npm --version
 RUN npm install -g gitbook-cli
-RUN sed -i "287d" /opt/node/node-v14.18.3-linux-x64/lib/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js
+RUN sed -i "62,64d" /opt/node/node-v14.18.3-linux-x64/lib/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js
+#RUN sed -i "287d" /opt/node/node-v14.18.3-linux-x64/lib/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js
 RUN gitbook --version
 #RUN apt update
 #RUN apt install -y calibre
