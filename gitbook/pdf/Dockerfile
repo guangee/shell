@@ -14,5 +14,5 @@ RUN gitbook --version
 RUN apt update
 RUN apt install -y calibre-bin
 RUN apt install -y calibre
-ADD simsun.ttc /usr/share/fonts/truetype/
 RUN apt install -y exiftool
+ADD simsun.ttc /usr/share/fonts/truetype/
