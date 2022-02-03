@@ -21,9 +21,9 @@ RUN mkdir -p /opt/node \
     && tar -xzvf node-v16.13.2-linux-x64.tar.gz \
     && rm node-v16.13.2-linux-x64.tar.gz
 RUN ls /opt/node
-RUN export NODE_HOME=/opt/node/node-v16.13.2-linux-x64 \
-    && export PATH=$PATH:$NODE_HOME/bin \
-    && export NODE_PATH=$PATH:$NODE_HOME/lib/node_modules
+#RUN export NODE_HOME=/opt/node/node-v16.13.2-linux-x64 \
+#    && export PATH=$PATH:$NODE_HOME/bin \
+#    && export NODE_PATH=$PATH:$NODE_HOME/lib/node_modules
 #RUN apt install -y node
 RUN echo $PATH
 
