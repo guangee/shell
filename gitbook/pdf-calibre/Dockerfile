@@ -1,17 +1,14 @@
 FROM linuxserver/calibre:5.35.0
-RUN cat /etc/issue
-RUN apt update
-RUN yum update
 RUN echo "Asia/Shanghai" > /etc/timezone
-#RUN cat /etc/apt/sources.list
+RUN cat /etc/apt/sources.list
 ENV DEBIAN_FRONTEND=noninteractive
 # 修改镜像源为阿里云  # main restricted multiverse universe
-#RUN echo "deb http://mirrors.aliyun.com/ubuntu/ jammy main universe" > /etc/apt/sources.list
-#RUN echo "deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main universe" >> /etc/apt/sources.list
+RUN echo "deb http://mirrors.aliyun.com/ubuntu/ bionic main universe" > /etc/apt/sources.list
+RUN echo "deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main universe" >> /etc/apt/sources.list
 
 WORKDIR /book
 # 安装node
-RUN yum install -y curl wget
+RUN apt update && apt install -y curl wget
 ENV NODE_VERSION_NUM                v14.18.1
 ENV NODE_VERSION                    node-${NODE_VERSION_NUM}
 RUN mkdir -p /opt/node \
@@ -28,15 +25,7 @@ RUN npm --version
 RUN npm install -g gitbook-cli
 RUN sed -i "62,64d" /opt/node/${NODE_VERSION}-linux-x64/lib/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js
 RUN gitbook --version
-# RUN yum install -y exiftool
+RUN apt install -y exiftool
 RUN npm install -g yarn
 ADD simsun.ttc /usr/share/fonts/truetype/
-#RUN yum install -y epel-release
-#RUN yum install -y snapd
-# RUN systemctl enable --now snapd.socket
-#RUN ln -s /var/lib/snapd/snap /snap
-#RUN systemctl  start snap
-#RUN snap install calibre --edge
-#RUN yum install -y calibre
-RUN wget http://download.calibre-ebook.com/linux-installer.sh
-RUN sh linux-installer.sh
+#RUN apt install -y --no-install-recommends calibre
