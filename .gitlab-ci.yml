@@ -1,7 +1,7 @@
 stages:
+  - gitbook
   - maven
   - package
-  - gitbook
 
 maven-package:
   image: maven:3.5-jdk-8
