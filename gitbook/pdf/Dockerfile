@@ -1,4 +1,4 @@
-FROM node:9.11
+FROM node:10
 RUN echo "Asia/Shanghai" > /etc/timezone
 RUN cat /etc/apt/sources.list
 # 修改镜像源为阿里云
