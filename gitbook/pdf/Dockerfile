@@ -19,9 +19,9 @@ RUN mkdir -p /opt/node \
     && cd /opt/node \
     && wget https://registry.npmmirror.com/-/binary/node/v16.13.2/node-v16.13.2-linux-x64.tar.gz \
     && tar -xzvf node-v16.13.2-linux-x64.tar.gz \
-    && ls && pwd
+    && rm node-v16.13.2-linux-x64.tar.gz
 RUN ls /opt/node
-RUN export NODE_HOME=/opt/node \
+RUN export NODE_HOME=/opt/node/node-v16.13.2-linux-x64 \
     && export PATH=$PATH:$NODE_HOME/bin \
     && export NODE_PATH=$PATH:$NODE_HOME/lib/node_modules
 
