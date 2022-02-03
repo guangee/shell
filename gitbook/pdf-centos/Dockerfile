@@ -32,5 +32,5 @@ RUN yum install -y epel-release
 RUN yum install -y snapd
 # RUN systemctl enable --now snapd.socket
 RUN ln -s /var/lib/snapd/snap /snap
-RUN snap install -y calibre --edge
+RUN snap install calibre --edge
 RUN yum install -y calibre
