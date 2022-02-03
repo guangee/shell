@@ -28,4 +28,9 @@ RUN gitbook --version
 # RUN yum install -y exiftool
 RUN npm install -g yarn
 ADD simsun.ttc /usr/share/fonts/truetype/
+RUN yum install epel-release
+RUN yum install snapd
+RUN systemctl enable --now snapd.socket
+RUN ln -s /var/lib/snapd/snap /snap
+RUN snap install calibre --edge
 RUN yum install -y calibre
