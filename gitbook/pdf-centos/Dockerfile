@@ -25,7 +25,7 @@ RUN npm --version
 RUN npm install -g gitbook-cli
 RUN sed -i "62,64d" /opt/node/${NODE_VERSION}-linux-x64/lib/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js
 RUN gitbook --version
-RUN yum install -y exiftool
+#RUN yum install -y exiftool
 RUN npm install -g yarn
 ADD simsun.ttc /usr/share/fonts/truetype/
 RUN yum install -y --no-install-recommends calibre
