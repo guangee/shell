@@ -2,14 +2,10 @@ FROM node:9.11
 RUN echo "Asia/Shanghai" > /etc/timezone
 RUN cat /etc/apt/sources.list
 # 修改镜像源为阿里云
-RUN echo "deb http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse" > /etc/apt/sources.list
-RUN echo "deb http://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb http://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb https://mirrors.aliyun.com/debian jessie main" > /etc/apt/sources.list
+RUN echo "deb https://mirrors.aliyun.com/debian jessie-updates main" >> /etc/apt/sources.list
 
-RUN apt update && apt install -y curl
-RUN curl -sL https://deb.nodesource.com/setup_9.x |  bash -
-RUN apt install -y nodejs
 RUN npm --version
+RUN apt update
 RUN npm install -g gitbook-cli
 RUN gitbook --version
