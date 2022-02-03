@@ -9,4 +9,4 @@ RUN npm --version
 RUN apt update
 RUN npm install -g gitbook-cli
 RUN gitbook --version
-RUN gitbook pdf
+RUN apt install -y calibre
