@@ -1,5 +1,13 @@
-FROM node:14.11
+FROM node:14.11 AS node
 RUN echo "Asia/Shanghai" > /etc/timezone
+RUN cat /etc/apt/sources.list
+# 修改镜像源为阿里云
+RUN echo "deb http://mirrors.aliyun.com/debian stretch main" > /etc/apt/sources.list
+RUN echo "deb http://mirrors.aliyun.com/debian stretch-updates main" >> /etc/apt/sources.list
+
+FROM ubuntu:20.04
+RUN echo "Asia/Shanghai" > /etc/timezone
+
 RUN cat /etc/apt/sources.list
 # 修改镜像源为阿里云
 RUN echo "deb http://mirrors.aliyun.com/debian stretch main" > /etc/apt/sources.list
