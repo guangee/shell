@@ -5,7 +5,7 @@ RUN cat /etc/apt/sources.list
 RUN echo "deb http://mirrors.aliyun.com/debian stretch main" > /etc/apt/sources.list
 RUN echo "deb http://mirrors.aliyun.com/debian stretch-updates main" >> /etc/apt/sources.list
 
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 RUN echo "Asia/Shanghai" > /etc/timezone
 
 RUN cat /etc/apt/sources.list
