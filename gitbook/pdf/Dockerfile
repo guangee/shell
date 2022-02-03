@@ -14,7 +14,7 @@ RUN echo "deb http://mirrors.aliyun.com/ubuntu/ jammy main universe" > /etc/apt/
 RUN echo "deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main universe" >> /etc/apt/sources.list
 
 WORKDIR /book
-RUN wget https://cdn.npmmirror.com/binaries/node/v16.13.2/node-v16.13.2-linux-x64.tar.xz
+RUN curl -O https://cdn.npmmirror.com/binaries/node/v16.13.2/node-v16.13.2-linux-x64.tar.xz
 RUN tar -xzvf node-v16.13.2-linux-x64.tar.xz /opt/node
 RUN ls /opt/node
 #RUN apt update
