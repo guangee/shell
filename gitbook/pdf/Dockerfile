@@ -9,10 +9,11 @@ RUN echo "deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main universe" >> 
 WORKDIR /book
 # 安装node
 RUN apt update && apt install -y curl wget
-ENV NODE_VERSION node-v12.22.9
+ENV NODE_VERSION_NUM v12.22.9
+ENV NODE_VERSION node-${NODE_VERSION_NUM}
 RUN mkdir -p /opt/node \
     && cd /opt/node \
-    && wget https://registry.npmmirror.com/-/binary/node/v14.18.3/${NODE_VERSION}-linux-x64.tar.gz \
+    && wget https://registry.npmmirror.com/-/binary/node/${NODE_VERSION_NUM}/${NODE_VERSION}-linux-x64.tar.gz \
     && tar -xzvf ${NODE_VERSION}-linux-x64.tar.gz \
     && rm ${NODE_VERSION}-linux-x64.tar.gz
 
