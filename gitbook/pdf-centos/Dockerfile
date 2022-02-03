@@ -1,6 +1,6 @@
 FROM centos:7.9.2009
 RUN echo "Asia/Shanghai" > /etc/timezone
-RUN cat /etc/apt/sources.list
+#RUN cat /etc/apt/sources.list
 ENV DEBIAN_FRONTEND=noninteractive
 # 修改镜像源为阿里云  # main restricted multiverse universe
 #RUN echo "deb http://mirrors.aliyun.com/ubuntu/ jammy main universe" > /etc/apt/sources.list
