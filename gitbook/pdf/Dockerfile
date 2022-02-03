@@ -7,13 +7,16 @@ RUN echo "deb http://mirrors.aliyun.com/debian stretch-updates main" >> /etc/apt
 
 FROM ubuntu:22.04
 RUN echo "Asia/Shanghai" > /etc/timezone
-RUN echo hello
 RUN cat /etc/apt/sources.list
 # 修改镜像源为阿里云
-RUN echo "deb http://mirrors.aliyun.com/debian stretch main" > /etc/apt/sources.list
-RUN echo "deb http://mirrors.aliyun.com/debian stretch-updates main" >> /etc/apt/sources.list
+RUN echo "deb http://mirrors.aliyun.com/ubuntu/ jammy main restricted multiverse universe" > /etc/apt/sources.list
+RUN echo "deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main restricted multiverse universe" >> /etc/apt/sources.list
 
 WORKDIR /book
+
+RUN apt update
+RUN apt install -y npm
+
 
 RUN npm --version
 RUN npm install -g gitbook-cli
