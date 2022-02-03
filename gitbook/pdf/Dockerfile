@@ -27,6 +27,11 @@ RUN export NODE_HOME=/opt/node/node-v16.13.2-linux-x64 \
 #RUN apt install -y node
 RUN echo $PATH
 
+ENV NODE_HOME /opt/node/node-v16.13.2-linux-x64
+ENV PATH $PATH:$NODE_HOME/bin
+ENV NODE_PATH $PATH:$NODE_HOME/lib/node_modules
+RUN echo $PATH
+
 RUN npm --version
 RUN npm install -g gitbook-cli
 RUN sed -i "287d" /usr/local/lib/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js
