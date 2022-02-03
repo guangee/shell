@@ -11,3 +11,4 @@ RUN npm --version
 RUN apt update && apt install -y calibre
 RUN npm install -g gitbook-cli
 RUN gitbook --version
+ADD simsun.ttc /usr/share/fonts/truetype/
