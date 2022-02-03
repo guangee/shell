@@ -11,6 +11,8 @@ RUN npm --version
 RUN npm install -g gitbook-cli
 RUN sed -i "287d" /usr/local/lib/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js
 RUN gitbook --version
-RUN apt update && apt install -y calibre
+RUN apt update
+RUN apt install -y calibre-bin
+RUN apt install -y calibre
 ADD simsun.ttc /usr/share/fonts/truetype/
 RUN apt install -y exiftool
