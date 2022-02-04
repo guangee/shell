@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /book
 # 安装node
 RUN yum install -y curl wget
-ENV NODE_VERSION_NUM                v14.18.1
+ENV NODE_VERSION_NUM                v10.23.0
 ENV NODE_VERSION                    node-${NODE_VERSION_NUM}
 RUN mkdir -p /opt/node \
     && cd /opt/node \
