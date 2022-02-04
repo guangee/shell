@@ -33,7 +33,7 @@ RUN gitbook --version
 
 # 安装phantomjs@2.1.1
 RUN npm i puppeteer@3.3.0 -g --unsafe-perm
-RUN mkdir -p /tmp/phantomjs/ && chmod 777 /tmp/phantomjs
+RUN mkdir -p /tmp/phantomjs/
 RUN wget https://files.coding-space.cn/rar/phantomjs-2.1.1-linux-x86_64.tar.bz2 \
     && mv phantomjs-2.1.1-linux-x86_64.tar.bz2 /tmp/phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2
 RUN apt install bzip2 -y
