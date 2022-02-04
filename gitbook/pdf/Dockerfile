@@ -40,3 +40,4 @@ RUN npm install -g phantomjs@2.1.1 --unsafe-perm
 RUN npm install -g svgexport@0.3.2 --unsafe-perm
 # 设置工作目录
 WORKDIR /book
+ENV LANG C.UTF-8
