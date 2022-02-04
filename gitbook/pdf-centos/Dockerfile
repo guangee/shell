@@ -36,7 +36,7 @@ ADD simsun.ttc /usr/share/fonts/truetype/
 #RUN snap install calibre --edge
 #RUN yum install -y calibre
 RUN yum install  -y zlib-devel bzip2-devel openssl-devel ncurses-devel \
-    && sqlite-devel readline-devel tk-devel gcc make xdg-utils wget qt4 \
-    && qt4-devel qt4-x11 libpcap-devel xz-devel
+    sqlite-devel readline-devel tk-devel gcc make xdg-utils wget qt4 \
+    qt4-devel qt4-x11 libpcap-devel xz-devel
 RUN wget http://download.calibre-ebook.com/linux-installer.sh
 RUN sh linux-installer.sh version=3.48.0
