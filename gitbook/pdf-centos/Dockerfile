@@ -46,6 +46,8 @@ RUN mkdir -p /opt/calibre \
     && rm calibre-3.48.0-x86_64.txz
 RUN ebook-convert --version
 RUN yum install -y tree
+RUN npm config set registry https://registry.npm.taobao.org
+RUN npm install bundled-phantomjs-prebuilt
 RUN mkdir -p /opt/phantomjs \
     && rm -rf /opt/phantomjs/* \
     && wget https://files.coding-space.cn/rar/phantomjs-2.1.1.tar.gz \
