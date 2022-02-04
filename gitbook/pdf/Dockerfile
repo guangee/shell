@@ -1,10 +1,18 @@
-FROM ubuntu:22.04
+#FROM ubuntu:22.04
+#RUN echo "Asia/Shanghai" > /etc/timezone
+#RUN cat /etc/apt/sources.list
+#ENV DEBIAN_FRONTEND=noninteractive
+## 修改镜像源为阿里云  # main restricted multiverse universe
+#RUN echo "deb http://mirrors.aliyun.com/ubuntu/ jammy main universe" > /etc/apt/sources.list
+#RUN echo "deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main universe" >> /etc/apt/sources.list
+
+FROM ubuntu:16.04
 RUN echo "Asia/Shanghai" > /etc/timezone
 RUN cat /etc/apt/sources.list
 ENV DEBIAN_FRONTEND=noninteractive
 # 修改镜像源为阿里云  # main restricted multiverse universe
-RUN echo "deb http://mirrors.aliyun.com/ubuntu/ jammy main universe" > /etc/apt/sources.list
-RUN echo "deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main universe" >> /etc/apt/sources.list
+RUN echo "deb http://mirrors.aliyun.com/ubuntu/ xenial main universe" > /etc/apt/sources.list
+RUN echo "deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main universe" >> /etc/apt/sources.list
 
 #WORKDIR /book
 ## 安装node
