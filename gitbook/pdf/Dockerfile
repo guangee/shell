@@ -13,9 +13,9 @@ ENV PATH                            $PATH:$NODE_HOME/bin
 ENV NODE_PATH                       $PATH:$NODE_HOME/lib/node_modules
 ENV QTWEBENGINE_DISABLE_SANDBOX     1
 ENV PUPPETEER_SKIP_DOWNLOAD         true
-ENV LANG C.UTF-8
+ENV LANG                            C.UTF-8
 
-RUN apt update && apt install -y curl wget exiftool bzip2 language-pack-zh-hans
+RUN apt update && apt install -y curl wget bzip2 language-pack-zh-hans
 RUN apt install -y --no-install-recommends calibre
 ADD simsun.ttc /usr/share/fonts/truetype/
 
