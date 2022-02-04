@@ -1,5 +1,5 @@
 FROM wernight/phantomjs:latest
-RUN echo "Asia/Shanghai" > /etc/timezone
+#RUN echo "Asia/Shanghai" > /etc/timezone
 RUN cat /etc/apt/sources.list
 ENV DEBIAN_FRONTEND=noninteractive
 # 修改镜像源为阿里云  # main restricted multiverse universe
