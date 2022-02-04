@@ -41,3 +41,4 @@ RUN npm install -g svgexport@0.3.2 --unsafe-perm
 # 设置工作目录
 WORKDIR /book
 ENV LANG C.UTF-8
+RUN apt install -y language-pack-zh-hans
