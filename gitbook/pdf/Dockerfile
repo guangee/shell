@@ -52,9 +52,13 @@ RUN mkdir -p /opt/node \
 
 RUN npm --version
 RUN npm install -g yarn
+
+# 安装gitbook
 RUN npm install -g gitbook-cli
 RUN sed -i "62,64d" /opt/node/${NODE_VERSION}-linux-x64/lib/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js
 RUN gitbook --version
+
+# 安装phantomjs@2.1.1
 RUN npm i puppeteer@3.3.0 -g --unsafe-perm
 RUN mkdir -p /tmp/phantomjs/ && chmod 777 /tmp/phantomjs
 RUN wget https://files.coding-space.cn/rar/phantomjs-2.1.1-linux-x86_64.tar.bz2 \
