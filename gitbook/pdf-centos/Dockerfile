@@ -55,6 +55,7 @@ RUN mkdir -p /opt/phantomjs \
     && tar xvf phantomjs-2.1.14.tar.gz -C /opt/phantomjs \
     && rm phantomjs-2.1.14.tar.gz \
     && cd /opt/phantomjs/ && pwd && tree \
+    && yarn install \
     && npm install request \
     && cd /opt/phantomjs/phantomjs-2.1.14/ \
     && node ./install.js \
