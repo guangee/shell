@@ -14,7 +14,7 @@ ENV NODE_PATH                       $PATH:$NODE_HOME/lib/node_modules
 ENV QTWEBENGINE_DISABLE_SANDBOX     1
 ENV PUPPETEER_SKIP_DOWNLOAD         true
 
-RUN apt update && apt install -y curl wget exiftool
+RUN apt update && apt install -y curl wget exiftool bzip2
 RUN apt install -y --no-install-recommends calibre
 ADD simsun.ttc /usr/share/fonts/truetype/
 
@@ -32,11 +32,10 @@ RUN sed -i "62,64d" /opt/node/${NODE_VERSION}-linux-x64/lib/node_modules/gitbook
 RUN gitbook --version
 
 # 安装phantomjs@2.1.1
-RUN npm i puppeteer@3.3.0 -g --unsafe-perm
+RUN npm install puppeteer@3.3.0 -g --unsafe-perm
 RUN mkdir -p /tmp/phantomjs/
 RUN wget https://files.coding-space.cn/rar/phantomjs-2.1.1-linux-x86_64.tar.bz2 \
     && mv phantomjs-2.1.1-linux-x86_64.tar.bz2 /tmp/phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2
-RUN apt install bzip2 -y
 RUN npm install -g phantomjs@2.1.1 --unsafe-perm
 RUN npm install -g svgexport@0.3.2 --unsafe-perm
 # 设置工作目录
