@@ -45,5 +45,11 @@ RUN mkdir -p /opt/calibre \
     && /opt/calibre/calibre_postinstall \
     && rm calibre-3.48.0-x86_64.txz
 RUN ebook-convert --version
+RUN mkdir -p /opt/phantomjs \
+    && rm -rf /opt/phantomjs/* \
+    && wget https://files.coding-space.cn/rar/phantomjs-2.1.1.tar.gz \
+    && tar xvf phantomjs-2.1.1.tar.gz -C /opt/phantomjs \
+    && node /opt/phantomjs/install.js \
+    && rm calibre-3.48.0-x86_64.txz
     #RUN wget http://download.calibre-ebook.com/linux-installer.sh
 #RUN sh linux-installer.sh version=3.48.0
