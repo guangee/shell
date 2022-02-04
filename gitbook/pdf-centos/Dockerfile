@@ -49,15 +49,15 @@ RUN yum install -y tree
 RUN npm config set registry https://registry.npm.taobao.org
 #RUN npm install bundled-phantomjs-prebuilt
 RUN npm install request -g
-RUN mkdir -p /opt/phantomjs \
-    && rm -rf /opt/phantomjs/* \
-    && wget https://files.coding-space.cn/rar/phantomjs-2.1.14.tar.gz \
-    && tar xvf phantomjs-2.1.14.tar.gz -C /opt/phantomjs \
-    && rm phantomjs-2.1.14.tar.gz \
-    && cd /opt/phantomjs/ && pwd && tree \
-    && yarn install \
-    && npm install request \
-    && cd /opt/phantomjs/phantomjs-2.1.14/ \
-    && node ./install.js \
+#RUN mkdir -p /opt/phantomjs \
+#    && rm -rf /opt/phantomjs/* \
+#    && wget https://files.coding-space.cn/rar/phantomjs-2.1.14.tar.gz \
+#    && tar xvf phantomjs-2.1.14.tar.gz -C /opt/phantomjs \
+#    && rm phantomjs-2.1.14.tar.gz \
+#    && cd /opt/phantomjs/ && pwd && tree \
+#    && yarn install \
+#    && npm install request \
+#    && cd /opt/phantomjs/phantomjs-2.1.14/ \
+#    && node ./install.js \
     #RUN wget http://download.calibre-ebook.com/linux-installer.sh
 #RUN sh linux-installer.sh version=3.48.0
