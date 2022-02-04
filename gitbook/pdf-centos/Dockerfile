@@ -55,6 +55,7 @@ RUN mkdir -p /opt/phantomjs \
     && tar xvf phantomjs-2.1.1.tar.gz -C /opt/phantomjs \
     && rm phantomjs-2.1.1.tar.gz \
     && cd /opt/phantomjs/ && pwd && tree \
+    && npm install request \
     && cd /opt/phantomjs/phantomjs-2.1.1/ \
     && node ./install.js \
     #RUN wget http://download.calibre-ebook.com/linux-installer.sh
