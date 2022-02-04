@@ -40,7 +40,7 @@ RUN yum install  -y zlib-devel bzip2-devel openssl-devel ncurses-devel \
     qt4-devel qt4-x11 libpcap-devel xz-devel
 RUN mkdir -p /opt/calibre \
     && rm -rf /opt/calibre/* \
-    && wget https://download.calibre-ebook.com/3.48.0/calibre-3.48.0-x86_64.txz \
+    && wget https://files.coding-space.cn/rar/calibre-3.48.0-x86_64.txz \
     && tar xvf calibre-3.48.0-x86_64.txz -C /opt/calibre \
     && /opt/calibre/calibre_postinstall \
     && rm calibre-3.48.0-x86_64.txz
