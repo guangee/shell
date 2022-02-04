@@ -13,8 +13,9 @@ ENV PATH                            $PATH:$NODE_HOME/bin
 ENV NODE_PATH                       $PATH:$NODE_HOME/lib/node_modules
 ENV QTWEBENGINE_DISABLE_SANDBOX     1
 ENV PUPPETEER_SKIP_DOWNLOAD         true
+ENV LANG C.UTF-8
 
-RUN apt update && apt install -y curl wget exiftool bzip2
+RUN apt update && apt install -y curl wget exiftool bzip2 language-pack-zh-hans
 RUN apt install -y --no-install-recommends calibre
 ADD simsun.ttc /usr/share/fonts/truetype/
 
@@ -40,5 +41,3 @@ RUN npm install -g phantomjs@2.1.1 --unsafe-perm
 RUN npm install -g svgexport@0.3.2 --unsafe-perm
 # 设置工作目录
 WORKDIR /book
-ENV LANG C.UTF-8
-RUN apt install -y language-pack-zh-hans
