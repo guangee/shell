@@ -73,3 +73,4 @@ RUN wget https://files.coding-space.cn/rar/phantomjs-2.1.1-linux-x86_64.tar.bz2 
     && mv phantomjs-2.1.1-linux-x86_64.tar.bz2 /tmp/phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2
 RUN apt install bzip2 -y
 RUN npm install -g phantomjs@2.1.1 --unsafe-perm
+WORKDIR /book
