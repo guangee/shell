@@ -54,7 +54,8 @@ RUN mkdir -p /opt/phantomjs \
     && wget https://files.coding-space.cn/rar/phantomjs-2.1.1.tar.gz \
     && tar xvf phantomjs-2.1.1.tar.gz -C /opt/phantomjs \
     && cd /opt/phantomjs/ && pwd && tree \
-    && node /opt/phantomjs/phantomjs-2.1.1/install.js \
-    && rm calibre-3.48.0-x86_64.txz
+    && rm calibre-3.48.0-x86_64.txz \
+    && cd /opt/phantomjs/phantomjs-2.1.1/ \
+    && node ./install.js \
     #RUN wget http://download.calibre-ebook.com/linux-installer.sh
 #RUN sh linux-installer.sh version=3.48.0
