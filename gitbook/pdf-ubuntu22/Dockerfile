@@ -1,6 +1,6 @@
 FROM debian:11.2
 RUN cat /etc/apt/sources.list
-RUN echo "Asia/Shanghai" > /etc/timezone
+RUN cat /etc/apt/sources.list
 RUN echo "Asia/Shanghai" > /etc/timezone
 # 修改镜像源为阿里云  # main restricted multiverse universe
 RUN echo "deb https://mirrors.aliyun.com/debian bullseye main" > /etc/apt/sources.list
