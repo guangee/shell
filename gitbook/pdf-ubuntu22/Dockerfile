@@ -21,6 +21,10 @@ RUN apt update && apt install -y curl wget bzip2 language-pack-zh-hans
 RUN apt install -y --no-install-recommends calibre
 ADD simsun.ttc /usr/share/fonts/truetype/
 
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
+    && apt install -y nodejs \
+    && npm --version
+
 RUN mkdir -p /opt/node \
     && cd /opt/node \
     && wget https://registry.npmmirror.com/-/binary/node/${NODE_VERSION_NUM}/${NODE_VERSION}-linux-x64.tar.gz \
