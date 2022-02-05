@@ -1,6 +1,5 @@
 FROM debian:11.2
 RUN cat /etc/apt/sources.list
-RUN cat /etc/apt/sources.list
 RUN echo "Asia/Shanghai" > /etc/timezone
 # 修改镜像源为阿里云  # main restricted multiverse universe
 RUN echo "deb http://mirrors.aliyun.com/debian bullseye main" > /etc/apt/sources.list
@@ -26,11 +25,11 @@ RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
     && apt install -y nodejs \
     && npm --version
 
-RUN mkdir -p /opt/node \
-    && cd /opt/node \
-    && wget https://registry.npmmirror.com/-/binary/node/${NODE_VERSION_NUM}/${NODE_VERSION}-linux-x64.tar.gz \
-    && tar -xzvf ${NODE_VERSION}-linux-x64.tar.gz \
-    && rm ${NODE_VERSION}-linux-x64.tar.gz
+#RUN mkdir -p /opt/node \
+#    && cd /opt/node \
+#    && wget https://registry.npmmirror.com/-/binary/node/${NODE_VERSION_NUM}/${NODE_VERSION}-linux-x64.tar.gz \
+#    && tar -xzvf ${NODE_VERSION}-linux-x64.tar.gz \
+#    && rm ${NODE_VERSION}-linux-x64.tar.gz
 
 RUN npm install -g yarn
 
