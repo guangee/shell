@@ -16,7 +16,9 @@ ENV QTWEBENGINE_DISABLE_SANDBOX     1
 ENV PUPPETEER_SKIP_DOWNLOAD         true
 ENV LANG                            C.UTF-8
 
-RUN apt update && apt install -y curl wget bzip2 language-pack-zh-hans
+RUN echo 你好1
+RUN apt update && apt install -y curl wget bzip2 locales
+RUN echo 你好2
 RUN apt install -y --no-install-recommends calibre
 ADD simsun.ttc /usr/share/fonts/truetype/
 
