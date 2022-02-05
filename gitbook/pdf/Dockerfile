@@ -25,7 +25,7 @@ WORKDIR /book
 ENV DEBIAN_FRONTEND=noninteractive \
     NODE_VERSION_NUM=v14.18.1 \
     NODE_VERSION=node-${NODE_VERSION_NUM} \
-    NODE_VERSION=/opt/node/${NODE_VERSION}-linux-x64 \
+    NODE_HOME=/opt/node/${NODE_VERSION}-linux-x64 \
     PATH=$PATH:$NODE_HOME/bin \
     NODE_PATH=$PATH:$NODE_HOME/lib/node_modules \
     QTWEBENGINE_DISABLE_SANDBOX=1 \
