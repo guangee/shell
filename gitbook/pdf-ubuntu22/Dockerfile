@@ -1,11 +1,9 @@
-FROM ubuntu:22.04
 FROM debian:11.2
 RUN cat /etc/apt/sources.list
 RUN echo "Asia/Shanghai" > /etc/timezone
 # 修改镜像源为阿里云  # main restricted multiverse universe
-RUN echo "deb http://mirrors.aliyun.com/ubuntu/ jammy main universe" > /etc/apt/sources.list
-RUN echo "deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main universe" >> /etc/apt/sources.list
-
+RUN echo "deb https://mirrors.aliyun.com/debian bullseye main" > /etc/apt/sources.list
+RUN echo "deb https://mirrors.aliyun.com/debian bullseye-updates main" >> /etc/apt/sources.list
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV NODE_VERSION_NUM                v14.18.1
