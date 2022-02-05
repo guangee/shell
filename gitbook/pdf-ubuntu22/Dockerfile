@@ -14,7 +14,7 @@ ENV NODE_PATH                       $PATH:$NODE_HOME/lib/node_modules
 ENV QTWEBENGINE_DISABLE_SANDBOX     1
 ENV PUPPETEER_SKIP_DOWNLOAD         true
 ENV LANG                            C.UTF-8
-
+ENV OPENSSL_CONF                    /dev/null
 RUN echo 你好1
 RUN apt update && apt install -y curl wget bzip2 locales
 RUN echo 你好2
