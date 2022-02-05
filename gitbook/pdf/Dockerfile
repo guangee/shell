@@ -4,33 +4,21 @@ RUN echo "Asia/Shanghai" > /etc/timezone
 RUN echo "deb http://mirrors.aliyun.com/ubuntu/ xenial main universe" > /etc/apt/sources.list
 RUN echo "deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main universe" >> /etc/apt/sources.list
 
-
-#ENV DEBIAN_FRONTEND=noninteractive
-#ENV NODE_VERSION_NUM                v14.18.1
-#ENV NODE_VERSION                    node-${NODE_VERSION_NUM}
-#ENV NODE_HOME                       /opt/node/${NODE_VERSION}-linux-x64
-#ENV PATH                            $PATH:$NODE_HOME/bin
-#ENV NODE_PATH                       $PATH:$NODE_HOME/lib/node_modules
-#ENV QTWEBENGINE_DISABLE_SANDBOX     1
-#ENV PUPPETEER_SKIP_DOWNLOAD         true
-#ENV LANG                            C.UTF-8
-#
+# 设置环境变量
+ENV DEBIAN_FRONTEND=noninteractive
+ENV NODE_VERSION_NUM                v14.18.1
+ENV NODE_VERSION                    node-${NODE_VERSION_NUM}
+ENV NODE_HOME                       /opt/node/${NODE_VERSION}-linux-x64
+ENV PATH                            $PATH:$NODE_HOME/bin
+ENV NODE_PATH                       $PATH:$NODE_HOME/lib/node_modules
+ENV QTWEBENGINE_DISABLE_SANDBOX     1
+ENV PUPPETEER_SKIP_DOWNLOAD         true
+ENV LANG                            C.UTF-8
 
 # 添加字体
 ADD simsun.ttc /usr/share/fonts/truetype/
 # 设置工作目录
 WORKDIR /book
-
-
-ENV DEBIAN_FRONTEND=noninteractive \
-    NODE_VERSION_NUM=v14.18.1 \
-    NODE_VERSION=node-${NODE_VERSION_NUM} \
-    NODE_HOME=/opt/node/${NODE_VERSION}-linux-x64 \
-    PATH=$PATH:$NODE_HOME/bin \
-    NODE_PATH=$PATH:$NODE_HOME/lib/node_modules \
-    QTWEBENGINE_DISABLE_SANDBOX=1 \
-    PUPPETEER_SKIP_DOWNLOAD=true \
-    LANG=C.UTF-8
 
 # 安装npm和yarn
 RUN apt update \
