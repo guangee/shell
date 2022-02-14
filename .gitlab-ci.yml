@@ -79,5 +79,5 @@ runner-gitbook:
 #    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/kubectl:latest
 #    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0 ./gitlab-runner/v14.2.0
 #    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0
-    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.7.0 ./gitlab-runner/v14.7.0
-    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.7.0
+    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitlab-runner:v14.7.0 ./gitlab-runner/v14.7.0
+    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitlab-runner:v14.7.0
