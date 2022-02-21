@@ -33,7 +33,7 @@ android-package:
   script:
     - echo ${docker_password} | docker login registry.cn-beijing.aliyuncs.com -u ${docker_username} --password-stdin
     - ls /root/.m2
-    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3-jdk11 ./android/30.0.3-jdk11
+    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3-jdk11 ./android/30.0.3/jdk11
     - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3-jdk11
 #    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:29.0.2 ./android/29.0.2
 #    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:29.0.2
