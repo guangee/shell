@@ -33,8 +33,8 @@ android-package:
   script:
     - echo ${docker_password} | docker login registry.cn-beijing.aliyuncs.com -u ${docker_username} --password-stdin
     - ls /root/.m2
-    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3-jdk11 ./android/30.0.3/jdk11
-    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3-jdk11
+#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3-jdk11 ./android/30.0.3/jdk11
+#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3-jdk11
 #    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:29.0.2 ./android/29.0.2
 #    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:29.0.2
 #    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:31.0.0 ./android/31.0.0
@@ -66,6 +66,15 @@ runner-package:
 #    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.7.0
 #    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0 ./gitlab-runner/v14.2.0
 #    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0
+
+runner-node:
+  image: registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8
+  tags:
+    - pre
+  stage: gitbook
+  script:
+    - echo ${docker_password} | docker login registry.cn-zhangjiakou.aliyuncs.com -u ${docker_username} --password-stdin
+    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/node:14 ./npm/node/14
 
 runner-gitbook:
   image: registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8
