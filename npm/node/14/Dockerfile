@@ -4,7 +4,8 @@ FROM node:14
 RUN echo "deb https://mirrors.aliyun.com/debian buster main" > /etc/apt/sources.list
 RUN echo "deb https://mirrors.aliyun.com/debian buster-updates main" >> /etc/apt/sources.list
 RUN apt update && apt install gettext -y
-RUN apt install -y build-essential fakeroot dpkg-dev libcurl4-openssl-dev build-dep git
+RUN apt install -y build-essential fakeroot dpkg-dev libcurl4-openssl-dev
+RUN apt -y build-dep git
 #mkdir ~/git-openssl
 #cd ~/git-openssl
 
