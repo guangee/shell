@@ -13,6 +13,8 @@ cd git-2.36.1
 make configure
 ./configure --prefix=/usr/local/git
 
+make && make install
+
 # 配置git的环境变量
 export GIT_HOME=/usr/local/git
 export PATH=$PATH:$GIT_HOME/bin
