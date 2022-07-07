@@ -5,4 +5,4 @@ RUN echo "Asia/Shanghai" > /etc/timezone
 RUN echo "deb https://mirrors.aliyun.com/debian buster main" > /etc/apt/sources.list
 RUN echo "deb https://mirrors.aliyun.com/debian buster-updates main" >> /etc/apt/sources.list
 
-ADD https://repo1.maven.org/maven2/co/elastic/apm/elastic-apm-agent/1.32.0/elastic-apm-agent-1.32.0.jar /elastic-apm-agent.jar
+ADD elastic-apm-agent-1.32.0.jar /elastic-apm-agent.jar
