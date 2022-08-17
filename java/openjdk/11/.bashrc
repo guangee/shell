@@ -23,5 +23,3 @@ echo -e "\E[1;36mHOSTNAME     \E[1;32m${HOSTNAME:-unknown}\e[0m"
 echo -e -n '\E[1;34m'
 echo "Base: ${PRETTY_NAME:-linux/amd64}"
 echo -e '\E[0m'
-
-echo -e "\E[1;36mHOSTNAME     \E[1;32m$(ffmpeg -version)\E[0m"
