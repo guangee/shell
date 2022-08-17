@@ -6,5 +6,5 @@ RUN echo "deb https://mirrors.aliyun.com/debian buster main" > /etc/apt/sources.
 RUN echo "deb https://mirrors.aliyun.com/debian buster-updates main" >> /etc/apt/sources.list
 
 RUN apt update && apt install curl vim figlet iputils-ping procps -y
-#
+# 修改欢迎命令
 COPY .bashrc /root/.bashrc
