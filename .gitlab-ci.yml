@@ -40,6 +40,7 @@ make-build:
     - apt update
     - apt install -y make
     - make jre11
+    - make jre11-ffmpeg
 
 android-package:
   image: registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8
