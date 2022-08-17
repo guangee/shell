@@ -37,6 +37,7 @@ make-build:
     - pre
   stage: package
   script:
+    - echo ${docker_password} | docker login registry.cn-zhangjiakou.aliyuncs.com -u ${docker_username} --password-stdin
     - apt update
     - apt install -y make
     - make jre11
