@@ -5,6 +5,6 @@ RUN echo "Asia/Shanghai" > /etc/timezone
 RUN echo "deb https://mirrors.aliyun.com/debian buster main" > /etc/apt/sources.list
 RUN echo "deb https://mirrors.aliyun.com/debian buster-updates main" >> /etc/apt/sources.list
 
-RUN apt update && apt install curl vim figlet iputils-ping procps net-tools -y
+RUN apt update && apt install curl vim figlet iputils-ping procps net-tools less -y
 # 修改欢迎命令
 COPY .bashrc /root/.bashrc
