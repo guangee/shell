@@ -37,6 +37,8 @@ make-build:
     - pre
   stage: package
   script:
+    - apt update
+    - apt install -y make
     - make jre11
 
 android-package:
