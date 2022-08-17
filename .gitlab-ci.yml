@@ -22,8 +22,8 @@ maven-package:
 #    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11.0.15-jre
     #    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.4-jdk-11 maven/jdk11
     #    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.4-jdk-11
-    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11.0.15-jre-ffmpeg java/openjdk/ffmpeg-11
-    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11.0.15-jre-ffmpeg
+#    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11.0.15-jre-ffmpeg java/openjdk/ffmpeg-11
+#    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11.0.15-jre-ffmpeg
 
 
 
@@ -87,8 +87,8 @@ runner-gitbook:
   stage: gitbook
   script:
     - echo ${docker_password} | docker login registry.cn-zhangjiakou.aliyuncs.com -u ${docker_username} --password-stdin
-#    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitbook-pdf:v1.9 ./gitbook/pdf
-#    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitbook-pdf:v1.9
+    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitbook-pdf:v1.91 ./gitbook/pdf
+    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitbook-pdf:v1.91
 #    - docker pull bitnami/kubectl:latest
 #    - docker tag bitnami/kubectl:latest registry.cn-zhangjiakou.aliyuncs.com/guanweiming/kubectl:latest
 #    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/kubectl:latest

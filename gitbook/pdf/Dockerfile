@@ -1,8 +1,8 @@
 FROM ubuntu:16.04
 RUN echo "Asia/Shanghai" > /etc/timezone
 # 修改镜像源为阿里云  # main restricted multiverse universe
-RUN echo "deb http://mirrors.aliyun.com/ubuntu/ xenial main universe" > /etc/apt/sources.list
-RUN echo "deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main universe" >> /etc/apt/sources.list
+RUN echo "deb https://mirrors.aliyun.com/ubuntu/ xenial main universe" > /etc/apt/sources.list
+RUN echo "deb https://mirrors.aliyun.com/ubuntu/ xenial-updates main universe" >> /etc/apt/sources.list
 
 # 设置环境变量
 ENV DEBIAN_FRONTEND=noninteractive
