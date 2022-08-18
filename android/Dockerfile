@@ -33,5 +33,5 @@ RUN yes | /opt/android/tools/bin/sdkmanager "platforms;android-33"
 
 RUN yes | /opt/android/tools/bin/sdkmanager --licenses
 
-RUN apt autoremove openjdk-8-jdk-headless && apt install  -y openjdk-11-jdk-headless
+RUN apt autoremove -y openjdk-8-jdk-headless && apt install  -y openjdk-11-jdk-headless
 COPY .bashrc /root/.bashrc
