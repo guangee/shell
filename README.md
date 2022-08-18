@@ -4,6 +4,7 @@
 
 ```bash
 registry.cn-zhangjiakou.aliyuncs.com/tulan/openjdk:8
+registry.cn-zhangjiakou.aliyuncs.com/tulan/openjdk:8-ffmpeg
 registry.cn-zhangjiakou.aliyuncs.com/tulan/openjdk:11
 registry.cn-zhangjiakou.aliyuncs.com/tulan/openjdk:11-ffmpeg
 registry.cn-zhangjiakou.aliyuncs.com/tulan/maven:openjdk-8
