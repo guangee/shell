@@ -1,4 +1,4 @@
-FROM maven:3.8.4-jdk-11-slim
+FROM maven:3.8.6-openjdk-11
 
 RUN cat /etc/apt/sources.list
 # 修改镜像源为阿里云
