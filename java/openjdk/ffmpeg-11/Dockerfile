@@ -1,7 +1,10 @@
-FROM registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11.0.16-jre
+FROM openjdk:11.0.16-jre-slim-buster
+# 修改docker时间为东八区
+RUN echo "Asia/Shanghai" > /etc/timezone
+# 修改镜像源为阿里云
+RUN echo "deb https://mirrors.aliyun.com/debian buster main" > /etc/apt/sources.list
+RUN echo "deb https://mirrors.aliyun.com/debian buster-updates main" >> /etc/apt/sources.list
 
-RUN apt update \
-    && apt install ffmpeg -y \
-    && ffmpeg -version
-
-RUN echo 'echo -e "\E[1;36mHOSTNAME     \E[1;32m$(ffmpeg -version)\E[0m"' >> /root/.bashrc
+RUN apt update && apt install curl vim figlet iputils-ping procps net-tools less ffmpeg -y
+# 修改欢迎命令
+COPY .bashrc /root/.bashrc
