@@ -4,6 +4,6 @@ RUN cat /etc/apt/sources.list
 RUN echo "deb http://mirrors.aliyun.com/debian bullseye main" > /etc/apt/sources.list
 RUN echo "deb http://mirrors.aliyun.com/debian bullseye-updates main" >> /etc/apt/sources.list
 
-RUN apt update && apt install curl vim figlet iputils-ping procps net-tools less -y
+RUN apt update && apt install curl vim figlet iputils-ping procps net-tools less gettext -y
 # 修改欢迎命令
 COPY .bashrc /root/.bashrc
