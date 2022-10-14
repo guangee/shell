@@ -6,7 +6,7 @@ stages:
 maven-package:
   image: maven:3.5-jdk-8
   tags:
-    - pre
+    - dev
   stage: maven
   script:
     - echo ${docker_password} | docker login registry.cn-zhangjiakou.aliyuncs.com -u ${docker_username} --password-stdin
@@ -26,6 +26,9 @@ maven-package:
 #    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11.0.15-jre-ffmpeg
 #    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11.0.16-jre java/openjdk/11
 #    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11.0.16-jre
+    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11-speex java/openjdk/11-speex
+    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11-speex
+
 
 
 
@@ -34,7 +37,7 @@ maven-package:
 make-build:
   image: registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.4-jdk-11
   tags:
-    - pre
+    - dev
   stage: package
   script:
     - echo ${docker_password} | docker login registry.cn-zhangjiakou.aliyuncs.com -u ${docker_username} --password-stdin
@@ -46,7 +49,7 @@ make-build:
 android-package:
   image: registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8
   tags:
-    - pre
+    - dev
   stage: package
   script:
     - echo ${docker_password} | docker login registry.cn-beijing.aliyuncs.com -u ${docker_username} --password-stdin
@@ -71,7 +74,7 @@ android-package:
 runner-package:
   image: registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8
   tags:
-    - pre
+    - dev
   stage: package
   script:
     - echo ${docker_password} | docker login registry.cn-zhangjiakou.aliyuncs.com -u ${docker_username} --password-stdin
@@ -88,7 +91,7 @@ runner-package:
 runner-node:
   image: registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8
   tags:
-    - pre
+    - dev
   stage: gitbook
   script:
     - echo ${docker_password} | docker login registry.cn-zhangjiakou.aliyuncs.com -u ${docker_username} --password-stdin
@@ -98,7 +101,7 @@ runner-node:
 runner-gitbook:
   image: registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8
   tags:
-    - pre
+    - dev
   stage: gitbook
   script:
     - echo ${docker_password} | docker login registry.cn-zhangjiakou.aliyuncs.com -u ${docker_username} --password-stdin
