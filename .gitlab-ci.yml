@@ -87,8 +87,8 @@ runner-package:
 #    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.7.0
 #    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0 ./gitlab-runner/v14.2.0
 #    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0
-    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v15.7.1 ./gitlab-runner/v15.7.1
-    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v15.7.1
+    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitlab-runner:v15.7.1 ./gitlab-runner/v15.7.1
+    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitlab-runner:v15.7.1
 runner-node:
   image: registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8
   tags:
