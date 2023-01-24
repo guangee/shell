@@ -26,7 +26,7 @@ gitlab-runner register --non-interactive \
     --name runner-prod \
     --tag-list ${TAG_NAME} \
     --run-untagged=true \
-    --executor docker \
+    --executor kubernetes \
     --builds-dir /home/gitlab-runner \
     --docker-pull-policy if-not-present \
     --docker-image ubuntu:20.04 \
