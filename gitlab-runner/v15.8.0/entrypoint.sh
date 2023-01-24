@@ -23,7 +23,7 @@ echo "hello" | tee /demo.txt
 gitlab-runner register --non-interactive \
     --url ${GITLAB_URL}/ci \
     --registration-token ${CI_TOKEN} \
-    --name runner-prod \
+    --name gitlab-runner \
     --tag-list ${TAG_NAME} \
     --run-untagged=true \
     --executor docker \
