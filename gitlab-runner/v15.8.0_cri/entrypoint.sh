@@ -33,8 +33,9 @@ gitlab-runner register --non-interactive \
     --docker-volumes "/root/.m2:/root/.m2:rw" \
     --docker-volumes "/root/.gradle:/root/.gradle" \
     --docker-volumes "/root/.kube/config:/root/.kube/config" \
-    --docker-volumes "/usr/bin/docker:/usr/bin/docker" \
-    --docker-volumes "/var/run/docker.sock:/var/run/docker.sock" \
+    --docker-volumes "/usr/bin/ctr:/usr/bin/ctr" \
+    --docker-volumes "/usr/bin/crictl:/usr/bin/crictl" \
+    --docker-volumes "/run/containerd/containerd.sock:/run/containerd/containerd.sock" \
     --docker-volumes "/usr/bin/kubectl:/usr/bin/kubectl" \
     --docker-volumes "/usr/bin/docker-compose:/usr/bin/docker-compose" \
     --config "/etc/gitlab-runner/config.toml" \
