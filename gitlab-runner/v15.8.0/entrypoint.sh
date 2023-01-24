@@ -32,6 +32,7 @@ gitlab-runner register --non-interactive \
     --docker-image ubuntu:20.04 \
     --docker-volumes "/root/.m2:/root/.m2:rw" \
     --docker-volumes "/root/.gradle:/root/.gradle" \
+    --docker-volumes "/root/.npm:/root/.npm" \
     --docker-volumes "/root/.kube/config:/root/.kube/config" \
     --docker-volumes "/usr/bin/docker:/usr/bin/docker" \
     --docker-volumes "/var/run/docker.sock:/var/run/docker.sock" \
