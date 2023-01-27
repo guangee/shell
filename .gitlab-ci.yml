@@ -1,120 +1,14 @@
 stages:
-  - gitbook
-  - maven
-  - package
+  - build
 
 maven-package:
-  image: maven:3.5-jdk-8
+  image: registry.cn-zhangjiakou.aliyuncs.com/tulan/maven:openjdk-11
   tags:
     - dev
-  stage: maven
+  stage: build
   script:
-    - echo ${docker_password} | docker login registry.cn-zhangjiakou.aliyuncs.com -u ${docker_username} --password-stdin
-    #    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8 maven/jdk8
-    #    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8
-    #    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8-pre maven/jdk8-pre
-    #    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8-pre
-    #    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8-prod maven/jdk8-prod
-    #    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8-prod
-    #    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:8u312-jre java/openjdk/8
-    #    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:8u312-jre
-#    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11.0.15-jre java/openjdk/11
-#    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11.0.15-jre
-    #    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.4-jdk-11 maven/jdk11
-    #    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.4-jdk-11
-#    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11.0.15-jre-ffmpeg java/openjdk/ffmpeg-11
-#    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11.0.15-jre-ffmpeg
-#    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11.0.16-jre java/openjdk/11
-#    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11.0.16-jre
+    - echo ${docker_password} | docker login registry.cn-zhangjiakou.aliyuncs.com -u ${tulan_username} --password-stdin
 #    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11-speex java/openjdk/11-speex
 #    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11-speex
-
-
-
-
-
-
-make-build:
-  image: registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.4-jdk-11
-  tags:
-    - dev
-  stage: package
-  script:
-    - echo ${docker_password} | docker login registry.cn-zhangjiakou.aliyuncs.com -u ${docker_username} --password-stdin
-#    - apt update
-#    - apt install -y make
-#    - make jre11
-#    - make jre11-ffmpeg
-
-android-package:
-  image: registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8
-  tags:
-    - dev
-  stage: package
-  script:
-    - echo ${docker_password} | docker login registry.cn-beijing.aliyuncs.com -u ${docker_username} --password-stdin
-    - ls /root/.m2
-#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3-jdk11 ./android/30.0.3/jdk11
-#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3-jdk11
-#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:29.0.2 ./android/29.0.2
-#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:29.0.2
-#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:31.0.0 ./android/31.0.0
-#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:31.0.0
-#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3 ./android/30.0.3
-#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:30.0.3
-#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:29.0.3 ./android/29.0.3
-#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:29.0.3
-#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:28.0.3 ./android/28.0.3
-#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:28.0.3
-#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/android:28.0.2 ./android/28.0.2
-#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/android:28.0.2
-
-
-
-runner-package:
-  image: registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8
-  tags:
-    - dev
-  stage: package
-  script:
-    - echo ${docker_password} | docker login registry.cn-zhangjiakou.aliyuncs.com -u ${docker_username} --password-stdin
-#    - docker pull bitnami/kubectl:latest
-#    - docker tag bitnami/kubectl:latest registry.cn-zhangjiakou.aliyuncs.com/guanweiming/kubectl:latest
-#    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/kubectl:latest
-#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0 ./gitlab-runner/v14.2.0
-#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0
-#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.7.0 ./gitlab-runner/v14.7.0
-#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.7.0
-#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0 ./gitlab-runner/v14.2.0
-#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0
-#    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitlab-runner:v15.7.1 ./gitlab-runner/v15.7.1
-#    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitlab-runner:v15.7.1
-    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitlab-runner:v15.8.0 ./gitlab-runner/v15.8.0
-    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitlab-runner:v15.8.0
-
-runner-node:
-  image: registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8
-  tags:
-    - dev
-  stage: gitbook
-  script:
-    - echo ${docker_password} | docker login registry.cn-zhangjiakou.aliyuncs.com -u ${docker_username} --password-stdin
-#    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/node:14 ./npm/node/14
-#    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/node:14
-
-runner-gitbook:
-  image: registry.cn-zhangjiakou.aliyuncs.com/guanweiming/maven:3.8.3-openjdk-8
-  tags:
-    - dev
-  stage: gitbook
-  script:
-    - echo ${docker_password} | docker login registry.cn-zhangjiakou.aliyuncs.com -u ${docker_username} --password-stdin
-#    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitbook-pdf:v1.91 ./gitbook/pdf
-#    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitbook-pdf:v1.91
-#    - docker pull bitnami/kubectl:latest
-#    - docker tag bitnami/kubectl:latest registry.cn-zhangjiakou.aliyuncs.com/guanweiming/kubectl:latest
-#    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/kubectl:latest
-#    - docker build -t registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0 ./gitlab-runner/v14.2.0
-#    - docker push registry.cn-beijing.aliyuncs.com/guanweiming/gitlab-runner:v14.2.0
-#    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitlab-runner:v14.7.0 ./gitlab-runner/v14.7.0
-#    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/gitlab-runner:v14.7.0
+    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/tulan/node:16 ./npm/node/16
+    - docker push registry.cn-zhangjiakou.aliyuncs.com/tulan/node:16
