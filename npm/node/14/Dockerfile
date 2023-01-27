@@ -1,6 +1,4 @@
 FROM node:14
-RUN echo 'hi'
-RUN cat /etc/apt/sources.list
 # 修改镜像源为阿里云
 RUN echo "deb https://mirrors.aliyun.com/debian stretch main" > /etc/apt/sources.list
 RUN echo "deb https://mirrors.aliyun.com/debian stretch-updates main" >> /etc/apt/sources.list
