@@ -13,3 +13,4 @@ maven-package:
 #    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/tulan/node:16 ./npm/node/16
 #    - docker push registry.cn-zhangjiakou.aliyuncs.com/tulan/node:16
     - ./build.sh node:14 npm/node/14
+    - ./build.sh node:16 npm/node/16
