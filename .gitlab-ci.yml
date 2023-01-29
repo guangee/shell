@@ -12,5 +12,7 @@ maven-package:
 #    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11-speex
 #    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/tulan/node:16 ./npm/node/16
 #    - docker push registry.cn-zhangjiakou.aliyuncs.com/tulan/node:16
+# 第一个参数是要构建的镜像名称，第二个参数是本地docker文件的路径
+    - ./build.sh nginx-proxy-manager:2.9.19 nginx:2.9.19
     - ./build.sh node:14 npm/node/14
     - ./build.sh node:16 npm/node/16
