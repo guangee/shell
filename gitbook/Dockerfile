@@ -14,7 +14,8 @@ ENV NODE_PATH                       $PATH:$NODE_HOME/lib/node_modules
 ENV QTWEBENGINE_DISABLE_SANDBOX     1
 ENV PUPPETEER_SKIP_DOWNLOAD         true
 ENV LANG                            C.UTF-8
-
+ENV GITBOOK_VERSION                 3.2.3
+ENV GITBOOK_CLI_VERSION             2.3.2
 # 添加字体
 ADD simsun.ttc /usr/share/fonts/truetype/
 # 设置工作目录
@@ -43,6 +44,7 @@ RUN npm install puppeteer@3.3.0 -g --unsafe-perm \
     && mv phantomjs-2.1.1-linux-x86_64.tar.bz2 /tmp/phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2 \
     && npm install -g phantomjs@2.1.1 --unsafe-perm \
     && npm install -g svgexport@0.3.2 --unsafe-perm
+
 
 # 打印版本号
 COPY .bashrc /root/.bashrc

@@ -17,8 +17,8 @@ alias h='cd ~;clear;'
 echo -e -n '\E[1;34m'
 figlet -w 120 "TulanTech"
 echo -e "\E[1;36mNODE_VERSION \E[1;32m${NODE_VERSION:-unknown}\e[0m"
-echo -e "\E[1;36mJAVA_HOME    \E[1;32m${JAVA_HOME:-unknown}\e[0m"
-echo -e "\E[1;36mJAVA_OPTS    \E[1;32m${JAVA_OPTS:-unknown}\e[0m"
+echo -e "\E[1;36mCLI_VERSION  \E[1;32m${GITBOOK_CLI_VERSION:-unknown}\e[0m"
+echo -e "\E[1;36mGITBOOK      \E[1;32m${GITBOOK_VERSION:-unknown}\e[0m"
 echo -e "\E[1;36mHOSTNAME     \E[1;32m${HOSTNAME:-unknown}\e[0m"
 echo -e -n '\E[1;34m'
 echo "Base: ${PRETTY_NAME:-linux/amd64}"

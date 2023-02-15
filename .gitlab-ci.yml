@@ -24,7 +24,7 @@ maven-package:
     - ./build.sh maven:jdk8                 maven/jdk8
     - ./build.sh maven:3.8.6-openjdk-11     maven/jdk11
     - ./build.sh maven:jdk11                maven/jdk11
-    - ./build.sh gitbook:14                 gitbook
+    - ./build.sh gitbook:3.2.3              gitbook
     - ./build.sh node:14                    npm/node/14
     - ./build.sh node:16                    npm/node/16
     - ./build.sh nginx-proxy-manager:2.9.19 nginx
