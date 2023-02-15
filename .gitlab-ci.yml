@@ -14,6 +14,7 @@ maven-package:
 #    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/tulan/node:16 ./npm/node/16
 #    - docker push registry.cn-zhangjiakou.aliyuncs.com/tulan/node:16
 # 第一个参数是要构建的镜像名称，第二个参数是本地docker文件的路径1
+    - ./build.sh maven:3.8.6-openjdk-8 maven/jdk8
     - ./build.sh maven:jdk11 maven/jdk11
     - ./build.sh gitbook:14 npm/node/14
     - ./build.sh node:14 npm/node/14
