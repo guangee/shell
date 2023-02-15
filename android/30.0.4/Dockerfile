@@ -18,4 +18,4 @@ RUN yes | /opt/android/tools/bin/sdkmanager "platforms;android-31"
 RUN yes | /opt/android/tools/bin/sdkmanager --licenses
 
 RUN DEBIAN_FRONTEND=noninteractive && apt update  &&  apt install -y tzdata openjdk-11-jdk-headless language-pack-zh*
-RUN apt autoremove openjdk-8-jdk-headless
+RUN apt autoremove -y openjdk-8-jdk-headless
