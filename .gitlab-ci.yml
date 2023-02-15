@@ -2,7 +2,7 @@ stages:
   - build
 
 maven-package:
-  image: registry.cn-zhangjiakou.aliyuncs.com/tulan/maven:openjdk-11
+  image: zziaguan/maven:openjdk-11
   tags:
     - dev
   stage: build
