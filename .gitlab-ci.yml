@@ -2,7 +2,7 @@ stages:
   - build
 
 maven-package:
-  image: zziaguan/maven:openjdk-11
+  image: zziaguan/maven:3.8.6-openjdk-11
   tags:
     - dev
   stage: build
