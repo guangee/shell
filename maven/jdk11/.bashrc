@@ -18,7 +18,6 @@ echo -e -n '\E[1;34m'
 figlet -w 120 "TulanTech"
 echo -e "\E[1;36mJAVA_VERSION \E[1;32m${JAVA_VERSION:-unknown}\e[0m"
 echo -e "\E[1;36mJAVA_HOME    \E[1;32m${JAVA_HOME:-unknown}\e[0m"
-echo -e "\E[1;36mJAVA_OPTS    \E[1;32m${JAVA_OPTS:-unknown}\e[0m"
 echo -e "\E[1;36mMAVEN_VERSION\E[1;32m${MAVEN_VERSION:-unknown}\e[0m"
 echo -e "\E[1;36mMAVEN_HOME   \E[1;32m${MAVEN_HOME:-unknown}\e[0m"
 echo -e -n '\E[1;34m'
