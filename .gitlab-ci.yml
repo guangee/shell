@@ -14,12 +14,12 @@ maven-package:
 #    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/tulan/node:16 ./npm/node/16
 #    - docker push registry.cn-zhangjiakou.aliyuncs.com/tulan/node:16
 # 第一个参数是要构建的镜像名称，第二个参数是本地docker文件的路径1
-    - ./build.sh openjdk:11                 openjdk/11
-    - ./build.sh openjdk:11.0.16-jre        openjdk/11
-    - ./build.sh openjdk:11.0.16-jre-ffmpeg openjdk/11-ffmpeg
-    - ./build.sh openjdk:8                  openjdk/8
-    - ./build.sh openjdk:8u342-jre          openjdk/8
-    - ./build.sh openjdk:8u342-jre-ffmpeg   openjdk/8-ffmpeg
+    - ./build.sh openjdk:11                 java/openjdk/11
+    - ./build.sh openjdk:11.0.16-jre        java/openjdk/11
+    - ./build.sh openjdk:11.0.16-jre-ffmpeg java/openjdk/11-ffmpeg
+    - ./build.sh openjdk:8                  java/openjdk/8
+    - ./build.sh openjdk:8u342-jre          java/openjdk/8
+    - ./build.sh openjdk:8u342-jre-ffmpeg   java/openjdk/8-ffmpeg
     - ./build.sh maven:3.8.6-openjdk-8      maven/jdk8
     - ./build.sh maven:jdk11                maven/jdk11
     - ./build.sh gitbook:14                 npm/node/14
