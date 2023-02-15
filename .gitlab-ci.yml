@@ -8,6 +8,7 @@ maven-package:
   stage: build
   script:
     - echo ${docker_password} | docker login registry.cn-zhangjiakou.aliyuncs.com -u ${tulan_username} --password-stdin
+    - echo ${docker_hub_password} | docker login -u ${docker_hub_username} --password-stdin
 #    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11-speex java/openjdk/11-speex
 #    - docker push registry.cn-zhangjiakou.aliyuncs.com/guanweiming/openjdk:11-speex
 #    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/tulan/node:16 ./npm/node/16
