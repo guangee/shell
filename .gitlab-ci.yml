@@ -14,6 +14,7 @@ maven-package:
 #    - docker build -t registry.cn-zhangjiakou.aliyuncs.com/tulan/node:16 ./npm/node/16
 #    - docker push registry.cn-zhangjiakou.aliyuncs.com/tulan/node:16
 # 第一个参数是要构建的镜像名称，第二个参数是本地docker文件的路径1
+    - ./build.sh gitlab-runner:v15.8.0      gitlab-runner/v15.8.0
     - ./build.sh openjdk:11                 java/openjdk/11
     - ./build.sh openjdk:11.0.16-jre        java/openjdk/11
     - ./build.sh openjdk:11.0.16-jre-ffmpeg java/openjdk/11-ffmpeg
