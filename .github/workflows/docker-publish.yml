@@ -27,6 +27,7 @@ jobs:
       - name: Push image
         run: |
           echo "构建"
+          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
           ./build.sh gitlab-runner:v15.8.0      gitlab-runner/v15.8.0
 #          docker build -t guangee/nacos:1.4.2 nacos/1.4.2/
 #          docker push guangee/nacos:1.4.2
