@@ -24,6 +24,21 @@ jobs:
       - name: 登陆docker
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login docker.io -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
+      - name: 构建node
+        run: |
+          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+          ./build.sh node:14                    npm/node/14
+          ./build.sh node:16                    npm/node/16
+
+      - name: Push image
+        run: |
+          echo "构建"
+          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+          ./build.sh gitlab-runner:v15.8.0      gitlab-runner/v15.8.0
+          ./build.sh gitbook:3.2.3              gitbook
+          ./build.sh nginx-proxy-manager:2.9.19 nginx
+          ./build.sh android:30.0.3             android/30.0.3
+
       - name: 构建openjdk
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
@@ -42,17 +57,3 @@ jobs:
           ./build.sh maven:3.8.6-openjdk-11     maven/jdk11
           ./build.sh maven:jdk11                maven/jdk11
 
-      - name: 构建node
-        run: |
-          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh node:14                    npm/node/14
-          ./build.sh node:16                    npm/node/16
-
-      - name: Push image
-        run: |
-          echo "构建"
-          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh gitlab-runner:v15.8.0      gitlab-runner/v15.8.0
-          ./build.sh gitbook:3.2.3              gitbook
-          ./build.sh nginx-proxy-manager:2.9.19 nginx
-          ./build.sh android:30.0.3             android/30.0.3
