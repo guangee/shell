@@ -1,7 +1,6 @@
 FROM ubuntu:20.04
-RUN echo "Asia/Shanghai" > /etc/timezone
 USER root
-ADD sources.list /etc/apt/sources.list
+
 
 RUN apt update
 RUN apt upgrade -y
@@ -15,3 +14,6 @@ RUN yes | /opt/android/tools/bin/sdkmanager "platform-tools"
 RUN yes | /opt/android/tools/bin/sdkmanager "build-tools;31.0.0"
 RUN yes | /opt/android/tools/bin/sdkmanager "platforms;android-31"
 RUN yes | /opt/android/tools/bin/sdkmanager --licenses
+
+RUN echo "Asia/Shanghai" > /etc/timezone
+ADD sources.list /etc/apt/sources.list
