@@ -34,48 +34,87 @@ jobs:
           ./build.sh openjdk:8                  java/openjdk/8
           ./build.sh openjdk:8u342-jre          java/openjdk/8
           ./build.sh openjdk:8u342-jre-ffmpeg   java/openjdk/8-ffmpeg
-
-  push:
+  build-android:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
-
     steps:
       - uses: actions/checkout@v2
 
-      - name: 登陆docker
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login docker.io -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: build image
+        run: |
+          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+          ./build.sh android:31.0.0             android/31.0.0
+          ./build.sh android:30.0.3             android/30.0.3
+  build-node:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v2
 
-      - name: 构建node
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
           ./build.sh node:14                    npm/node/14
           ./build.sh node:16                    npm/node/16
+  build-maven:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v2
 
-      - name: Push image
-        run: |
-          echo "构建"
-          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh android:31.0.0             android/31.0.0
-          ./build.sh gitlab-runner:v15.8.0      gitlab-runner/v15.8.0
-          ./build.sh gitbook:3.2.3              gitbook
-          ./build.sh nginx-proxy-manager:2.9.19 nginx
-          ./build.sh android:30.0.3             android/30.0.3
-
-#      - name: 构建openjdk
-#        run: |
-#          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-#          ./build.sh openjdk:11                 java/openjdk/11
-#          ./build.sh openjdk:11.0.16-jre        java/openjdk/11
-#          ./build.sh openjdk:11.0.16-jre-ffmpeg java/openjdk/11-ffmpeg
-#          ./build.sh openjdk:8                  java/openjdk/8
-#          ./build.sh openjdk:8u342-jre          java/openjdk/8
-#          ./build.sh openjdk:8u342-jre-ffmpeg   java/openjdk/8-ffmpeg
-
-      - name: 构建maven
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
           ./build.sh maven:3.8.6-openjdk-8      maven/jdk8
           ./build.sh maven:jdk8                 maven/jdk8
           ./build.sh maven:3.8.6-openjdk-11     maven/jdk11
           ./build.sh maven:jdk11                maven/jdk11
+  build-gitbook:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v2
 
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: build image
+        run: |
+          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+          ./build.sh gitbook:3.2.3              gitbook
+
+  build-other:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: build image
+        run: |
+          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+          ./build.sh gitlab-runner:v15.8.0      gitlab-runner/v15.8.0
+          ./build.sh nginx-proxy-manager:2.9.19 nginx
