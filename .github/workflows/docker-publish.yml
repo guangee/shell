@@ -34,18 +34,25 @@ jobs:
           ./build.sh openjdk:8u342-jre          java/openjdk/8
           ./build.sh openjdk:8u342-jre-ffmpeg   java/openjdk/8-ffmpeg
 
+      - name: 构建maven
+        run: |
+          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+          ./build.sh maven:3.8.6-openjdk-8      maven/jdk8
+          ./build.sh maven:jdk8                 maven/jdk8
+          ./build.sh maven:3.8.6-openjdk-11     maven/jdk11
+          ./build.sh maven:jdk11                maven/jdk11
+
+      - name: 构建node
+        run: |
+          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+          ./build.sh node:14                    npm/node/14
+          ./build.sh node:16                    npm/node/16
+
       - name: Push image
         run: |
           echo "构建"
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
           ./build.sh gitlab-runner:v15.8.0      gitlab-runner/v15.8.0
-          
-          ./build.sh maven:3.8.6-openjdk-8      maven/jdk8
-          ./build.sh maven:jdk8                 maven/jdk8
-          ./build.sh maven:3.8.6-openjdk-11     maven/jdk11
-          ./build.sh maven:jdk11                maven/jdk11
           ./build.sh gitbook:3.2.3              gitbook
-          ./build.sh node:14                    npm/node/14
-          ./build.sh node:16                    npm/node/16
           ./build.sh nginx-proxy-manager:2.9.19 nginx
           ./build.sh android:30.0.3             android/30.0.3
