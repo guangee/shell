@@ -1,6 +1,8 @@
 FROM ubuntu:20.04
 USER root
 
+ENV ANDROID_HOME                    /opt/android
+ENV LANG                            C.UTF-8
 
 RUN apt update
 RUN apt upgrade -y
