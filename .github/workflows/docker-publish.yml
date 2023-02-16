@@ -14,6 +14,27 @@ on:
   pull_request:
 
 jobs:
+  build-openjdk:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWD }}
+      - name: build image
+        run: |
+          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+          ./build.sh openjdk:11                 java/openjdk/11
+          ./build.sh openjdk:11.0.16-jre        java/openjdk/11
+          ./build.sh openjdk:11.0.16-jre-ffmpeg java/openjdk/11-ffmpeg
+          ./build.sh openjdk:8                  java/openjdk/8
+          ./build.sh openjdk:8u342-jre          java/openjdk/8
+          ./build.sh openjdk:8u342-jre-ffmpeg   java/openjdk/8-ffmpeg
+
   push:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
@@ -40,15 +61,15 @@ jobs:
           ./build.sh nginx-proxy-manager:2.9.19 nginx
           ./build.sh android:30.0.3             android/30.0.3
 
-      - name: 构建openjdk
-        run: |
-          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh openjdk:11                 java/openjdk/11
-          ./build.sh openjdk:11.0.16-jre        java/openjdk/11
-          ./build.sh openjdk:11.0.16-jre-ffmpeg java/openjdk/11-ffmpeg
-          ./build.sh openjdk:8                  java/openjdk/8
-          ./build.sh openjdk:8u342-jre          java/openjdk/8
-          ./build.sh openjdk:8u342-jre-ffmpeg   java/openjdk/8-ffmpeg
+#      - name: 构建openjdk
+#        run: |
+#          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+#          ./build.sh openjdk:11                 java/openjdk/11
+#          ./build.sh openjdk:11.0.16-jre        java/openjdk/11
+#          ./build.sh openjdk:11.0.16-jre-ffmpeg java/openjdk/11-ffmpeg
+#          ./build.sh openjdk:8                  java/openjdk/8
+#          ./build.sh openjdk:8u342-jre          java/openjdk/8
+#          ./build.sh openjdk:8u342-jre-ffmpeg   java/openjdk/8-ffmpeg
 
       - name: 构建maven
         run: |
