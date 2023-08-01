@@ -149,5 +149,5 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh gitlab-runner:v15.8.0      gitlab-runner/v15.8.0
+          ./build.sh gitlab-runner:v16.2.0      gitlab-runner/v16.2.0
           ./build.sh nginx-proxy-manager:2.9.19 nginx
