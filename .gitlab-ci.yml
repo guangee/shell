@@ -7,4 +7,5 @@ maven-package:
     - dev
   stage: build
   script:
+    - ping -c 5 gitlab.coding-space.cn
     - echo "构建服务已经转到github actions,点击这里查看 https://github.com/guangee/shell/actions"
