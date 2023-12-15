@@ -82,7 +82,7 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh android:33.0.2             android/31.0.2
+          ./build.sh android:33.0.2             android/33.0.2
           ./build.sh android:31.0.0.1             android/31.0.0.1
 
   build-node:
