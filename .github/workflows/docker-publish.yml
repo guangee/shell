@@ -83,7 +83,6 @@ jobs:
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
           ./build.sh android:33.0.2             android/33.0.2
-          ./build.sh android:31.0.0.1             android/31.0.0.1
 
   build-android-34:
     runs-on: ubuntu-latest
@@ -167,6 +166,5 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh gitlab-runner:v16.6.1      gitlab-runner/v16.6.1
-          ./build.sh gitlab-runner:v16.2.1      gitlab-runner/v16.2.1
+          ./build.sh gitlab-runner:v16.6.2      gitlab-runner/v16.6.2
           ./build.sh nginx-proxy-manager:2.9.19 nginx
