@@ -1,5 +1,4 @@
 FROM php:7.3-fpm
-ADD sources.list /etc/apt/sources.list
 RUN apt update
 RUN apt install -y vim net-tools cron git nginx libfreetype6-dev libjpeg62-turbo-dev libpng-dev
 RUN rm /etc/nginx/sites-enabled/default
@@ -22,3 +21,9 @@ RUN docker-php-ext-enable redis
 RUN docker-php-ext-enable swoole
 RUN docker-php-ext-install pdo_mysql && docker-php-ext-enable pdo_mysql
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+ADD sources.list /etc/apt/sources.list
+
+# 修改镜像源为阿里云
+RUN echo "deb https://mirrors.aliyun.com/debian bullseye main" > /etc/apt/sources.list
+RUN echo "deb https://mirrors.aliyun.com/debian bullseye-updates main" >> /etc/apt/sources.list
+RUN echo "deb https://mirrors.aliyun.com/debian-security bullseye-updates main" >> /etc/apt/sources.list
