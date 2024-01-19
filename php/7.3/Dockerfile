@@ -21,7 +21,7 @@ RUN docker-php-ext-enable redis
 RUN docker-php-ext-enable swoole
 RUN docker-php-ext-install pdo_mysql && docker-php-ext-enable pdo_mysql
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
-ADD sources.list /etc/apt/sources.list
+COPY .bashrc /root/.bashrc
 
 # 修改镜像源为阿里云
 RUN echo "deb https://mirrors.aliyun.com/debian bullseye main" > /etc/apt/sources.list
