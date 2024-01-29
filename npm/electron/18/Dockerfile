@@ -5,5 +5,3 @@ RUN echo "Asia/Shanghai" > /etc/timezone
 COPY .bashrc /root/.bashrc
 RUN apt update && apt install -y tree
 RUN apt install -y wine
-RUN apt install -y wine32
-RUN apt install -y wine64
