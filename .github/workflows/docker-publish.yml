@@ -114,6 +114,7 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+          ./build.sh node:18                    npm/node/18
           ./build.sh node:14                    npm/node/14
           ./build.sh node:16                    npm/node/16
   build-maven:
