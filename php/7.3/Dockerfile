@@ -2,7 +2,10 @@ FROM php:7.3-fpm
 RUN apt update
 RUN apt install -y vim net-tools cron git nginx libfreetype6-dev libjpeg62-turbo-dev libpng-dev
 RUN rm /etc/nginx/sites-enabled/default
-RUN docker-php-ext-install -j$(nproc) gd
+#RUN docker-php-ext-install -j$(nproc) gd
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+RUN docker-php-ext-install gd
+RUN docker-php-ext-install bcmath
 ADD php-ext/phpredis-5.3.7.tar.gz /etc/
 RUN mv /etc/phpredis-5.3.7 /etc/phpredis
 RUN cd /etc/phpredis && ls && pwd  \
