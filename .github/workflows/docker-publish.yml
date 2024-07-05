@@ -185,6 +185,7 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+          ./build.sh gitlab-runner:v17.1.0      gitlab-runner/v17.1.0
           ./build.sh php:7.3.2                    php/7.3.2
           ./build.sh php:7.3.1                    php/7.3
           ./build.sh php:7.3                    php/7.3
