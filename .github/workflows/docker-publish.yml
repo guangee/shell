@@ -28,166 +28,167 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh kkfileview:4.1.0           kkfileview
-          ./build.sh openjdk:11                 java/openjdk/11
-          ./build.sh openjdk:11.0.16-jre-font   java/openjdk/11-font
-          ./build.sh openjdk:11.0.16-jre        java/openjdk/11
-          ./build.sh openjdk:11.0.16-jre-ffmpeg java/openjdk/11-ffmpeg
-          ./build.sh openjdk:8                  java/openjdk/8
-          ./build.sh openjdk:8u342-jre-font     java/openjdk/8-font
-          ./build.sh openjdk:8u342-jre          java/openjdk/8
-          ./build.sh openjdk:8u342-jre-ffmpeg   java/openjdk/8-ffmpeg
-
-  build-android-1:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: build image
-        run: |
-          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh android:31.0.0             android/31.0.0
-
-  build-android-2:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: build image
-        run: |
-          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh android:30.0.3             android/30.0.3
-
-  build-android-3:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: build image
-        run: |
-          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh android:33.0.2             android/33.0.2
-
-  build-android-34:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: build image
-        run: |
-          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh android:34.0.0             android/34.0.0
-
-  build-node:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: build image
-        run: |
-          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh electron:18                npm/electron/18
-          ./build.sh node:18                    npm/node/18
-          ./build.sh node:14                    npm/node/14
-          ./build.sh node:16                    npm/node/16
-  build-maven:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: build image
-        run: |
-          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh maven:3.8.6-openjdk-8      maven/jdk8
-          ./build.sh maven:jdk8                 maven/jdk8
-          ./build.sh maven:3.8.6-openjdk-11     maven/jdk11
-          ./build.sh maven:jdk11                maven/jdk11
-  build-gitbook:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: build image
-        run: |
-          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh gitbook:3.2.3              gitbook
-  build-matlab:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: build image
-        run: |
-          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh openjdk:matlab-2021a  java/openjdk/11-matlab-2021a
-
-  build-other:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: build image
-        run: |
-          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh gitlab-runner:v17.1.0      gitlab-runner/v17.1.0
-          ./build.sh php:7.3.2                    php/7.3.2
-          ./build.sh php:7.3.1                    php/7.3
-          ./build.sh php:7.3                    php/7.3
-          ./build.sh gitlab-runner:v16.6.2      gitlab-runner/v16.6.2
-          ./build.sh nginx-proxy-manager:2.9.19 nginx
+          ./build.sh nginx/240708           nginx:240708
+#          ./build.sh kkfileview:4.1.0           kkfileview
+#          ./build.sh openjdk:11                 java/openjdk/11
+#          ./build.sh openjdk:11.0.16-jre-font   java/openjdk/11-font
+#          ./build.sh openjdk:11.0.16-jre        java/openjdk/11
+#          ./build.sh openjdk:11.0.16-jre-ffmpeg java/openjdk/11-ffmpeg
+#          ./build.sh openjdk:8                  java/openjdk/8
+#          ./build.sh openjdk:8u342-jre-font     java/openjdk/8-font
+#          ./build.sh openjdk:8u342-jre          java/openjdk/8
+#          ./build.sh openjdk:8u342-jre-ffmpeg   java/openjdk/8-ffmpeg
+#
+#  build-android-1:
+#    runs-on: ubuntu-latest
+#    if: github.event_name == 'push'
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Login to Docker Hub
+#        uses: docker/login-action@v1
+#        with:
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_PASSWORD }}
+#      - name: build image
+#        run: |
+#          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+#          ./build.sh android:31.0.0             android/31.0.0
+#
+#  build-android-2:
+#    runs-on: ubuntu-latest
+#    if: github.event_name == 'push'
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Login to Docker Hub
+#        uses: docker/login-action@v1
+#        with:
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_PASSWORD }}
+#      - name: build image
+#        run: |
+#          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+#          ./build.sh android:30.0.3             android/30.0.3
+#
+#  build-android-3:
+#    runs-on: ubuntu-latest
+#    if: github.event_name == 'push'
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Login to Docker Hub
+#        uses: docker/login-action@v1
+#        with:
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_PASSWORD }}
+#      - name: build image
+#        run: |
+#          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+#          ./build.sh android:33.0.2             android/33.0.2
+#
+#  build-android-34:
+#    runs-on: ubuntu-latest
+#    if: github.event_name == 'push'
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Login to Docker Hub
+#        uses: docker/login-action@v1
+#        with:
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_PASSWORD }}
+#      - name: build image
+#        run: |
+#          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+#          ./build.sh android:34.0.0             android/34.0.0
+#
+#  build-node:
+#    runs-on: ubuntu-latest
+#    if: github.event_name == 'push'
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Login to Docker Hub
+#        uses: docker/login-action@v1
+#        with:
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_PASSWORD }}
+#      - name: build image
+#        run: |
+#          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+#          ./build.sh electron:18                npm/electron/18
+#          ./build.sh node:18                    npm/node/18
+#          ./build.sh node:14                    npm/node/14
+#          ./build.sh node:16                    npm/node/16
+#  build-maven:
+#    runs-on: ubuntu-latest
+#    if: github.event_name == 'push'
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Login to Docker Hub
+#        uses: docker/login-action@v1
+#        with:
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_PASSWORD }}
+#      - name: build image
+#        run: |
+#          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+#          ./build.sh maven:3.8.6-openjdk-8      maven/jdk8
+#          ./build.sh maven:jdk8                 maven/jdk8
+#          ./build.sh maven:3.8.6-openjdk-11     maven/jdk11
+#          ./build.sh maven:jdk11                maven/jdk11
+#  build-gitbook:
+#    runs-on: ubuntu-latest
+#    if: github.event_name == 'push'
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Login to Docker Hub
+#        uses: docker/login-action@v1
+#        with:
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_PASSWORD }}
+#      - name: build image
+#        run: |
+#          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+#          ./build.sh gitbook:3.2.3              gitbook
+#  build-matlab:
+#    runs-on: ubuntu-latest
+#    if: github.event_name == 'push'
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Login to Docker Hub
+#        uses: docker/login-action@v1
+#        with:
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_PASSWORD }}
+#      - name: build image
+#        run: |
+#          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+#          ./build.sh openjdk:matlab-2021a  java/openjdk/11-matlab-2021a
+#
+#  build-other:
+#    runs-on: ubuntu-latest
+#    if: github.event_name == 'push'
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Login to Docker Hub
+#        uses: docker/login-action@v1
+#        with:
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_PASSWORD }}
+#
+#      - name: build image
+#        run: |
+#          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
+#          ./build.sh gitlab-runner:v17.1.0      gitlab-runner/v17.1.0
+#          ./build.sh php:7.3.2                    php/7.3.2
+#          ./build.sh php:7.3.1                    php/7.3
+#          ./build.sh php:7.3                    php/7.3
+#          ./build.sh gitlab-runner:v16.6.2      gitlab-runner/v16.6.2
+#          ./build.sh nginx-proxy-manager:2.9.19 nginx
