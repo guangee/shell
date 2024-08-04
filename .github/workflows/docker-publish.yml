@@ -28,7 +28,8 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh nginx-proxy-manager:2.11.3 nginx
+          ./build.sh filebeat:7.17.9 filebeat
+#          ./build.sh nginx-proxy-manager:2.11.3 nginx
 #          ./build.sh nginx:240708           nginx/240708
 #          ./build.sh kkfileview:4.1.0           kkfileview
 #          ./build.sh openjdk:11                 java/openjdk/11

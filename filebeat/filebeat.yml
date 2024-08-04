@@ -1,0 +1,59 @@
+filebeat.inputs:
+  - type: syslog
+    enabled: true
+    max_message_size: 10KiB
+    keep_null: true
+    timeout: 10
+    protocol.udp:
+      host: "0.0.0.0:514"
+    json:
+      keys_under_root: true
+      overwrite_keys: true
+      add_error_key: true
+      #自定义的json日志的标识字段，该字段必须处于json的root
+      message_key: message
+  - type: syslog
+    enabled: true
+    max_message_size: 10KiB
+    timeout: 10
+    keep_null: true
+    protocol.tcp:
+      host: "0.0.0.0:514"
+    json:
+      keys_under_root: true
+      overwrite_keys: true
+      add_error_key: true
+      #自定义的json日志的标识字段，该字段必须处于json的root
+      message_key: message
+  - type: log
+    id: nginx
+    enabled: false
+    paths:
+      - ./logs/access.log
+    json:
+      keys_under_root: true
+      overwrite_keys: true
+      add_error_key: true
+      #自定义的json日志的标识字段，该字段必须处于json的root
+      message_key: message
+# output.redis:
+#   hosts: ["redis:6379"]
+#   key: "filebeat-redis"
+#   db: 0
+#   timeout: 5
+#   password: 12345678Aa@666
+output.elasticsearch:
+  hosts: ["localhost:62"]
+  preset: balanced
+  protocol: "http"
+  username: "elastic"
+  password: "12345678Aa"
+  index: "nginx-%{+yyyy.MM.dd}"
+# output.console:
+#   pretty: true
+#   enable: true
+setup.template.name: "nginx"
+setup.template.pattern: "nginx-*-*"
+
+
+
