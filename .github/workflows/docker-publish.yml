@@ -25,10 +25,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-#          ./build.sh openjdk:17 java/openjdk/17
           ./build.sh maven:3.8.5-openjdk-17 maven/jdk17
 #          ./build.sh android:28.0.2 android/28.0.2
 #          ./build.sh filebeat:7.17.9 filebeat
