@@ -29,7 +29,7 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-           ./build.sh android:28.0.3 android/28.0.3
+           ./build.sh android:30.0.4 android/30.0.4
 #          ./build.sh maven:3.8.5-openjdk-17 maven/jdk17
 #          ./build.sh android:28.0.2 android/28.0.2
 #          ./build.sh filebeat:7.17.9 filebeat
