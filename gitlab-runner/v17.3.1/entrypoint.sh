@@ -29,6 +29,8 @@ gitlab-runner register --non-interactive \
     --executor docker \
     --builds-dir /home/gitlab-runner \
     --docker-pull-policy if-not-present \
+    --pre-build-script "rm -f /builds/*/*/.git/shallow.lock" \
+    --custom_build_dir-enabled true \
     --docker-image ubuntu:22.04 \
     --docker-volumes "/root/.m2:/root/.m2:rw" \
     --docker-volumes "/root/.gradle/wrapper:/root/.gradle/wrapper" \
