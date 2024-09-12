@@ -8,8 +8,8 @@ on:
   push:
     tags:
       - "v*.*"
-  branches:
-    - master
+    branches:
+      - master
 #变量配置
 env:
   #镜像名称
