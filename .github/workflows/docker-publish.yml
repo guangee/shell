@@ -28,7 +28,7 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-           ./build.sh gitlab-runner:v17.3.2 gitlab-runner/v17.3.2
+          ./build.sh gitlab-runner:v17.4.0 gitlab-runner/v17.4.0
 #           ./build.sh android:car android/car
 #           ./build.sh android:30.0.4 android/30.0.4
 #          ./build.sh maven:3.8.5-openjdk-17 maven/jdk17
