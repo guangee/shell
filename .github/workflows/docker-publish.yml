@@ -28,9 +28,9 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh node:ubuntu-16  npm/node/ubuntu-16
-          ./build.sh node:ubuntu-14  npm/node/ubuntu-14
-          ./build.sh node:ubuntu-18  npm/node/ubuntu-18
+          ./build.sh node:ubuntu-16  npm/node/ubuntu-node16
+          ./build.sh node:ubuntu-14  npm/node/ubuntu-node14
+          ./build.sh node:ubuntu-18  npm/node/ubuntu-node18
 #          ./build.sh maven:openjdk-8  maven/ubuntu-jdk8
 #          ./build.sh maven:openjdk-11  maven/ubuntu-jdk11
 #          ./build.sh gitlab-runner:v17.4.0  gitlab-runner/v17.4.0
