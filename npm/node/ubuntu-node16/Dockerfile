@@ -10,6 +10,6 @@ COPY .bashrc /root/.bashrc
 RUN apt update && apt upgrade -y \
     && apt install -y wget unzip curl jq tzdata
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
-RUN apt-get install -y nodejs npm
+RUN apt install -y nodejs npm
 RUN npm install -g yarn
 ADD sources.list /etc/apt/sources.list
