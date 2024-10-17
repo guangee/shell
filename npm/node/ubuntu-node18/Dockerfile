@@ -11,6 +11,5 @@ RUN apt update && apt upgrade -y \
     && apt install -y wget unzip curl jq tzdata
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 RUN apt install -y nodejs
-RUN apt install -y npm
 RUN npm install -g yarn
 ADD sources.list /etc/apt/sources.list
