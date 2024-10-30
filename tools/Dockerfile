@@ -8,6 +8,6 @@ RUN echo "Asia/Shanghai" > /etc/timezone
 # 修改欢迎命令
 COPY .bashrc /root/.bashrc
 RUN apt update && apt upgrade -y \
-    && apt install -y wget unzip curl jq tzdata gettext net-tools
+    && apt install -y wget unzip curl jq tzdata gettext net-tools tree
 RUN wget https://dl.min.io/client/mc/release/linux-amd64/mc && chmod +x mc && mv mc /usr/bin/
 ADD sources.list /etc/apt/sources.list
