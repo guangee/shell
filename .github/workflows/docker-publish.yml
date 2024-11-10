@@ -28,7 +28,8 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh tools:22.04.1  tools
+          ./build.sh redis:7.4.1-cli  redis
+#          ./build.sh tools:22.04.1  tools
 #          ./build.sh node:ubuntu-16  npm/node/ubuntu-node16
 #          ./build.sh node:ubuntu-14  npm/node/ubuntu-node14
 #          ./build.sh node:ubuntu-18  npm/node/ubuntu-node18
