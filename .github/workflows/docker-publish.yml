@@ -28,7 +28,8 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh tools:22.05  tools
+          ./build.sh cron:22.04  cron
+#          ./build.sh tools:22.05  tools
 #          ./build.sh gitlab-runner:v17.5.0  gitlab-runner/v17.5.0
 #          ./build.sh redis:7.4.1-cli  redis
 #          ./build.sh tools:22.04.1  tools
