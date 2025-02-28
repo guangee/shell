@@ -1,7 +1,7 @@
 FROM openjdk:8u342-jre-slim-buster
 
 # 安装必要的软件
-RUN apt update && apt install -y fontconfig libfreetype6 curl vim figlet iputils-ping procps net-tools less
+RUN apt update && apt install -y fontconfig libfreetype6 curl vim figlet iputils-ping procps net-tools less wget unzip
 # 修改欢迎命令
 COPY .bashrc /root/.bashrc
 

@@ -28,7 +28,8 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh tools-run:22.05  tools-run
+          ./build.sh openjdk:8u342-jre-slim-buster-font     java/openjdk/8-font
+#          ./build.sh tools-run:22.05  tools-run
 #          ./build.sh nginx-proxy-manager:2.12.3 nginx
 #          ./build.sh cron:22.04  cron
 #          ./build.sh tools:22.05  tools
