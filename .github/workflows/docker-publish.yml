@@ -28,12 +28,13 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh node:ubuntu-20  npm/node/ubuntu-node20
-          ./build.sh node:ubuntu-22  npm/node/ubuntu-node22
-          ./build.sh node:ubuntu-24  npm/node/ubuntu-node24
-          ./build.sh node:24  npm/node/24
-          ./build.sh node:22  npm/node/22
-          ./build.sh node:20  npm/node/20
+          ./build.sh gitlab-runner:v18.1.0  gitlab-runner/v18.1.0
+#          ./build.sh node:ubuntu-20  npm/node/ubuntu-node20
+#          ./build.sh node:ubuntu-22  npm/node/ubuntu-node22
+#          ./build.sh node:ubuntu-24  npm/node/ubuntu-node24
+#          ./build.sh node:24  npm/node/24
+#          ./build.sh node:22  npm/node/22
+#          ./build.sh node:20  npm/node/20
 #          ./build.sh openjdk:8u342-jre-slim-buster-font     java/openjdk/8-font
 #          ./build.sh tools-run:22.05  tools-run
 #          ./build.sh nginx-proxy-manager:2.12.3 nginx
