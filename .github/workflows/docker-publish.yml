@@ -28,7 +28,8 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh gitlab-runner:v18.1.1  gitlab-runner/v18.1.1
+          ./build.sh redis:8.0.2-cli  redis/8.0.2
+#          ./build.sh gitlab-runner:v18.1.1  gitlab-runner/v18.1.1
 #          ./build.sh gitlab-runner:v18.1.0  gitlab-runner/v18.1.0
 #          ./build.sh node:ubuntu-20  npm/node/ubuntu-node20
 #          ./build.sh node:ubuntu-22  npm/node/ubuntu-node22
