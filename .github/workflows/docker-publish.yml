@@ -28,7 +28,8 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh redis:8.0.3-cli  redis/8.0.2
+          ./build.sh nginx-proxy-manager:2.12.4 nginx
+#          ./build.sh redis:8.0.3-cli  redis/8.0.2
 #          ./build.sh gitlab-runner:v18.1.1  gitlab-runner/v18.1.1
 #          ./build.sh gitlab-runner:v18.1.0  gitlab-runner/v18.1.0
 #          ./build.sh node:ubuntu-20  npm/node/ubuntu-node20
@@ -51,8 +52,8 @@ jobs:
 #          ./build.sh maven:openjdk-8  maven/ubuntu-jdk8
 #          ./build.sh maven:openjdk-11  maven/ubuntu-jdk11
 #          ./build.sh gitlab-runner:v17.4.0  gitlab-runner/v17.4.0
-#           ./build.sh android:car android/car
-#           ./build.sh android:30.0.4 android/30.0.4
+#          ./build.sh android:car android/car
+#          ./build.sh android:30.0.4 android/30.0.4
 #          ./build.sh maven:3.8.5-openjdk-17 maven/jdk17
 #          ./build.sh android:28.0.2 android/28.0.2
 #          ./build.sh filebeat:7.17.9 filebeat
