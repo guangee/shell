@@ -28,7 +28,8 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh redis:8.2.1-cli  redis/8.2.1
+          ./build.sh openjdk:17-font     java/openjdk/17-font
+#          ./build.sh redis:8.2.1-cli  redis/8.2.1
 #          ./build.sh android:35.0.0 android/35.0.0
 #          ./build.sh nginx-proxy-manager:2.12.6 nginx/2.12.6
 #          ./build.sh nginx-proxy-manager:2.12.3.aliyun.3 nginx
