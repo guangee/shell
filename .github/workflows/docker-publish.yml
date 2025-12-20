@@ -28,7 +28,8 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh tauri:1.0  tauri
+          ./build.sh redis:8.4.0-cli  redis/8.4.0
+#          ./build.sh tauri:1.0  tauri
 #          ./build.sh openjdk:17-font     java/openjdk/17-font
 #          ./build.sh redis:8.2.1-cli  redis/8.2.1
 #          ./build.sh android:35.0.0 android/35.0.0
