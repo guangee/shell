@@ -28,7 +28,8 @@ jobs:
       - name: build image
         run: |
           export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh redis:8.4.0-cli  redis/8.4.0
+          ./build.sh gitlab-runner:v18.7.2  gitlab-runner/v18.7.2
+#          ./build.sh redis:8.4.0-cli  redis/8.4.0
 #          ./build.sh tauri:1.0  tauri
 #          ./build.sh openjdk:17-font     java/openjdk/17-font
 #          ./build.sh redis:8.2.1-cli  redis/8.2.1
