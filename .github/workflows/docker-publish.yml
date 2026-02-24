@@ -14,18 +14,62 @@ on:
   pull_request:
 
 jobs:
-  build-openjdk:
+  build-images:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed Dockerfiles
+        id: changed
+        run: |
+          # 获取本次 push 涉及到的 Dockerfile 路径
+          if [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
+            # 首次 push：列出当前所有 Dockerfile
+            FILES=$(find . -name Dockerfile -type f | sed 's|^\./||')
+          elif [ "${GITHUB_REF#refs/tags/}" != "${GITHUB_REF}" ]; then
+            # 推 tag：取该 tag 与父 commit 的差异
+            FILES=$(git diff --name-only HEAD^ HEAD -- '**/Dockerfile' || true)
+          else
+            # 推分支：取 before 与当前 commit 的差异
+            FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- '**/Dockerfile' || true)
+          fi
+          # 只保留当前仍存在的 Dockerfile（排除已删除）
+          OUT=""
+          for f in $FILES; do
+            [ -f "$f" ] && OUT="${OUT}${f}"$'\n'
+          done
+          echo "dockerfiles<<EOF" >> $GITHUB_OUTPUT
+          printf '%s' "$OUT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v1
+        if: steps.changed.outputs.dockerfiles != ''
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: build image
+
+      - name: Build and push images
+        if: steps.changed.outputs.dockerfiles != ''
+        env:
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         run: |
-          export docker_hub_username=${{ secrets.DOCKER_USERNAME }}
-          ./build.sh openjdk:17-jdk-slim-font  java/openjdk/17-jdk-slim-font
+          export docker_hub_username="$DOCKER_HUB_USERNAME"
+          echo "${{ steps.changed.outputs.dockerfiles }}" | while IFS= read -r df; do
+            [ -z "$df" ] || [ ! -f "$df" ] && continue
+            path="${df%/Dockerfile}"
+            dir_parent="${path%/*}"
+            current="${path##*/}"
+            if [ "$dir_parent" = "$path" ]; then
+              # 只有一层目录，如 tauri/Dockerfile
+              image="${current}:latest"
+            else
+              parent="${dir_parent##*/}"
+              image="${parent}:${current}"
+            fi
+            echo "Building image: $image from path: $path"
+            ./build.sh "$image" "$path"
+          done
