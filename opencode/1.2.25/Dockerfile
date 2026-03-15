@@ -1,0 +1,1 @@
+FROM ghcr.io/anomalyco/opencode:1.2.25
