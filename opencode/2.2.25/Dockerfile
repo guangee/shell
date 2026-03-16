@@ -17,7 +17,7 @@ RUN apt update && apt upgrade -y \
     && wget https://dl.min.io/client/mc/release/linux-amd64/mc \
     && chmod +x mc \
     && mv mc /usr/bin/ \
-    &&wget https://github.com/mikefarah/yq/releases/download/v4.16.2/yq_linux_amd64 \
+    && wget https://github.com/mikefarah/yq/releases/download/v4.16.2/yq_linux_amd64 \
     && chmod +x yq_linux_amd64 \
     && mv yq_linux_amd64 /usr/bin/yq \
     && apt install -y ca-certificates gnupg openjdk-17-jdk \
