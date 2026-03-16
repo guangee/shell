@@ -6,13 +6,14 @@ ENV JAVA_HOME                       /usr/lib/jvm/java-17-openjdk-amd64
 ENV MAVEN_HOME                      /opt/maven
 ENV PATH                            $PATH:$JAVA_HOME/bin:$MAVEN_HOME/bin
 ENV OPENCODE_CONFIG                 /home/workspace/opencode.json
-
-RUN DEBIAN_FRONTEND=noninteractive
-RUN echo "Asia/Shanghai" > /etc/timezone
+ENV DEBIAN_FRONTEND                 noninteractive
+ENV TZ                              Asia/Shanghai
 # 修改欢迎命令
 COPY .bashrc /root/.bashrc
 
-RUN apt update && apt upgrade -y \
+RUN ln -fs /usr/share/zoneinfo/$TZ /etc/localtime \
+    && echo "$TZ" > /etc/timezone \
+    && apt update && apt upgrade -y \
     && apt install -y wget unzip curl jq tzdata gettext net-tools tree ca-certificates gnupg openjdk-17-jdk git \
     && wget https://dl.min.io/client/mc/release/linux-amd64/mc \
     && chmod +x mc \
