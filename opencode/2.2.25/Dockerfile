@@ -5,6 +5,7 @@ ENV LANG                            C.UTF-8
 ENV JAVA_HOME                       /usr/lib/jvm/java-17-openjdk-amd64
 ENV MAVEN_HOME                      /opt/maven
 ENV PATH                            $PATH:$JAVA_HOME/bin:$MAVEN_HOME/bin
+ENV OPENCODE_CONFIG                 /home/workspace/opencode.json
 
 RUN DEBIAN_FRONTEND=noninteractive
 RUN echo "Asia/Shanghai" > /etc/timezone
@@ -28,7 +29,9 @@ RUN apt update && apt upgrade -y \
     && tar -xzf /tmp/apache-maven-3.9.14-bin.tar.gz -C /opt \
     && ln -s /opt/apache-maven-3.9.14 /opt/maven \
     && ln -s /opt/maven/bin/mvn /usr/bin/mvn \
-    && rm /tmp/apache-maven-3.9.14-bin.tar.gz
+    && rm /tmp/apache-maven-3.9.14-bin.tar.gz \
+    && npm install -g yarn \
+    && yarn global add opencode-ai
 
 
 RUN mkdir -p /home/workspace
