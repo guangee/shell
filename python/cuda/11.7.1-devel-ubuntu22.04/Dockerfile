@@ -25,6 +25,5 @@ RUN mim install mmcv-full
 #RUN mim install mmcv-full==1.5.0
 WORKDIR /workdir/app
 RUN mkdir -p /root/.cache/torch/hub/checkpoints/
-RUN wget https://files.tulan.wang/dla34-ba72cf86.pth /root/.cache/torch/hub/checkpoints/dla34-ba72cf86.pth
 # 修改欢迎命令
 COPY .bashrc /root/.bashrc
