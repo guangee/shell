@@ -40,16 +40,14 @@ RUN wget -q "https://dl.google.com/android/repository/${ANDROID_CMDLINE_TOOLS_ZI
 ENV PATH="${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools:${PATH}"
 
 # side-by-side NDK 安装路径：$ANDROID_HOME/ndk/<version>
-ENV ANDROID_NDK_HOME=${ANDROID_HOME}/ndk/27.0.12077973
+ENV ANDROID_NDK_HOME=${ANDROID_HOME}/ndk/28.2.13676358
 
 RUN yes | sdkmanager --sdk_root="${ANDROID_HOME}" --licenses \
     && yes | sdkmanager --sdk_root="${ANDROID_HOME}" \
         "platform-tools" \
         "platforms;android-36" \
-        "platforms;android-35" \
-        "build-tools;36.0.0" \
-        "build-tools;35.0.0" \
-        "ndk;27.0.12077973" \
+        "build-tools;36.1.0" \
+        "ndk;28.2.13676358" \
         "cmake;3.22.1"
 
 # 在容器内执行 `flutter build apk` 需要 Flutter SDK；若只在宿主机跑 flutter、仅挂载本镜像的
