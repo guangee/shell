@@ -40,7 +40,7 @@ RUN wget -q "https://dl.google.com/android/repository/${ANDROID_CMDLINE_TOOLS_ZI
 ENV PATH="${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools:${PATH}"
 
 # side-by-side NDK 安装路径：$ANDROID_HOME/ndk/<version>
-ENV ANDROID_NDK_HOME=${ANDROID_HOME}/ndk/27.0.12077973
+ENV ANDROID_NDK_HOME=${ANDROID_HOME}/ndk/28.2.13676358
 
 RUN yes | sdkmanager --sdk_root="${ANDROID_HOME}" --licenses \
     && yes | sdkmanager --sdk_root="${ANDROID_HOME}" \
