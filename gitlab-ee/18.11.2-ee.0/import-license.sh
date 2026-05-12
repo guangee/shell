@@ -13,6 +13,7 @@ IMPORT_LOG="$(
   gitlab-rails runner "
 if License.count == 0
   begin
+    License.find_each(&:destroy!)
     License.create!(data: File.read('$LICENSE_FILE'))
     puts 'SUCCESS'
   rescue => e
