@@ -11,7 +11,6 @@ echo "Importing license..."
 # 2. 执行导入（合并 stderr，便于看到完整报错）
 IMPORT_LOG="$(
   gitlab-rails runner "
-if License.count == 0
   begin
     License.find_each(&:destroy!)
     License.create!(data: File.read('$LICENSE_FILE'))
@@ -19,9 +18,6 @@ if License.count == 0
   rescue => e
     puts \"ERROR: #{e.message}\"
   end
-else
-  puts 'EXISTS'
-end
 " 2>&1
 )" || true
 # gitlab-rails runner "License.create(data: File.read('/GitLabBV.gitlab-license'))"
