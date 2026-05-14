@@ -50,7 +50,7 @@ RUN set -eux; \
         echo "sdkman_healthcheck_enable=false"; \
     } >> "${SDKMAN_DIR}/etc/config"; \
     bash <<INSTALL
-set -euo pipefail
+set -eo pipefail
 source "${SDKMAN_DIR}/bin/sdkman-init.sh"
 sdk install java ${JAVA_8_SDK_ID}
 sdk install java ${JAVA_11_SDK_ID}
@@ -84,7 +84,7 @@ RUN set -eux; \
     && rm -rf /root/.npm/_cacache
 
 RUN bash <<'NODEBIN'
-set -euo pipefail
+set -eo pipefail
 . "${NVM_DIR}/nvm.sh"
 nvm use default >/dev/null
 for x in node npm npx yarn; do

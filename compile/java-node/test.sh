@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 构建阶段校验：依次切换各 JDK（SDKMAN）与 Node（nvm），打印版本；任一步失败则退出非 0。
-set -euo pipefail
+set -eo pipefail
 
 : "${SDKMAN_DIR:=/root/.sdkman}"
 : "${NVM_DIR:=/root/.nvm}"
