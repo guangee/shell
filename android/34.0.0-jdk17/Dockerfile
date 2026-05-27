@@ -1,9 +1,8 @@
 FROM ubuntu:22.04
 USER root
 
-ENV ANDROID_HOME                    /opt/android
-ENV LANG                            C.UTF-8
-ENV JAVA_HOME                       /usr/lib/jvm/java-17-openjdk-current
+ENV ANDROID_HOME=/opt/android
+ENV LANG=C.UTF-8
 
 RUN DEBIAN_FRONTEND=noninteractive
 RUN echo "Asia/Shanghai" > /etc/timezone
@@ -27,4 +26,7 @@ RUN apt update && apt upgrade -y \
     && apt install -y openjdk-17-jdk-headless \
     && arch="$(dpkg --print-architecture)" \
     && ln -sfn "/usr/lib/jvm/java-17-openjdk-${arch}" /usr/lib/jvm/java-17-openjdk-current
+
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-current
+
 ADD sources.list /etc/apt/sources.list
