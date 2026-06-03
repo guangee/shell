@@ -1,4 +1,4 @@
-FROM redis:8.6.3
+FROM redis:8.8.0
 RUN apt update && apt upgrade -y
 RUN apt install wget curl net-tools -y
 COPY .bashrc /root/.bashrc
