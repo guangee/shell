@@ -89,6 +89,121 @@ docker run --name postgresql -d \
   guangee/postgresql:17
 ```
 
+## 创建数据库与用户
+
+### 新建库是否包含默认扩展？
+
+**包含**，前提是数据目录已按本镜像完成首次初始化（`template1` 上已启用 `postgis`、`vector`、`pg_trgm`）。
+
+| 创建方式 | 是否自带默认扩展 | 说明 |
+|----------|------------------|------|
+| 首次启动时设 `DB_NAME=xxx` | ✅ 是 | 先从 `template1` 复制，再显式执行 `CREATE EXTENSION` |
+| 手动 `CREATE DATABASE book_view_uat;` | ✅ 是 | 默认以 `template1` 为模板，继承其扩展 |
+| 手动 `CREATE DATABASE ... TEMPLATE template0;` | ❌ 否 | `template0` 是空模板，不含任何扩展 |
+| 旧数据卷（升级镜像前已初始化） | ⚠️ 不一定 | 需手动 `CREATE EXTENSION` 或补装到 `template1` |
+
+验证某个库已启用的扩展：
+
+```sql
+\c book_view_uat
+SELECT extname, extversion FROM pg_extension ORDER BY extname;
+-- 预期包含：plpgsql、postgis、vector、pg_trgm
+```
+
+### 与 MySQL 写法对照
+
+| MySQL | PostgreSQL |
+|-------|------------|
+| `create database xxx character set utf8mb4` | `CREATE DATABASE xxx ENCODING 'UTF8'`（PG 17 默认 UTF8） |
+| `create user xxx` | `CREATE USER xxx WITH LOGIN PASSWORD '密码'` |
+| `ALTER USER ... IDENTIFIED BY '密码'` | `ALTER USER xxx PASSWORD '密码'` |
+| `grant all on db.* to user@'%'` | `GRANT ... ON DATABASE` + `GRANT ... ON SCHEMA public` |
+
+> PostgreSQL 15+ 仅授权 `DATABASE` 不够，还需授权 `SCHEMA public`，否则用户连上库也无法建表。
+
+### 方式一：首次启动时自动创建（推荐）
+
+等价于 MySQL 初始化脚本，**仅首次初始化数据卷时生效**：
+
+```bash
+docker run --name postgresql -d --restart always \
+  --publish 5432:5432 \
+  --env 'PG_PASSWORD=postgres_root_pass' \
+  --env 'DB_NAME=book_view_uat' \
+  --env 'DB_USER=book_view_uat' \
+  --env 'DB_PASS=book_view_uatAa@' \
+  --volume postgresql:/var/lib/postgresql \
+  guangee/postgresql:17
+```
+
+docker-compose 对应配置：
+
+```yaml
+environment:
+  PG_PASSWORD: postgres_root_pass
+  DB_NAME: book_view_uat
+  DB_USER: book_view_uat
+  DB_PASS: book_view_uatAa@
+```
+
+连接串：
+
+```
+postgresql://book_view_uat:book_view_uatAa@<主机IP>:5432/book_view_uat
+```
+
+### 方式二：手动 SQL（等价 MySQL 四步）
+
+```bash
+docker exec -it postgresql sudo -u postgres psql
+```
+
+```sql
+-- 1. 创建数据库（等价 utf8mb4）
+CREATE DATABASE book_view_uat ENCODING 'UTF8';
+
+-- 2. 创建用户并设置密码
+CREATE USER book_view_uat WITH LOGIN PASSWORD 'book_view_uatAa@';
+
+-- 3. 授权数据库
+GRANT ALL PRIVILEGES ON DATABASE book_view_uat TO book_view_uat;
+
+-- 4. 授权 schema（PG 15+ 必须，否则无法建表）
+\c book_view_uat
+GRANT ALL ON SCHEMA public TO book_view_uat;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO book_view_uat;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO book_view_uat;
+```
+
+### 方式三：一条命令执行（不进交互式 psql）
+
+```bash
+docker exec -i postgresql sudo -u postgres psql <<'SQL'
+CREATE DATABASE book_view_uat ENCODING 'UTF8';
+CREATE USER book_view_uat WITH LOGIN PASSWORD 'book_view_uatAa@';
+GRANT ALL PRIVILEGES ON DATABASE book_view_uat TO book_view_uat;
+\c book_view_uat
+GRANT ALL ON SCHEMA public TO book_view_uat;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO book_view_uat;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO book_view_uat;
+SQL
+```
+
+### 常用维护
+
+```sql
+-- 修改密码
+ALTER USER book_view_uat PASSWORD '新密码';
+
+-- 查看用户 / 数据库
+\du
+\l
+
+-- 删除（需先断开连接）
+DROP DATABASE book_view_uat;
+DROP USER book_view_uat;
+```
+
 ## 扩展（插件）
 
 ### 默认已启用
