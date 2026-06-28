@@ -299,6 +299,18 @@ create_user() {
   fi
 }
 
+enable_default_extensions() {
+  case $REPLICATION_MODE in
+    slave|snapshot|backup) return ;;
+  esac
+
+  [[ -z ${DB_EXTENSION} ]] && return
+
+  for database in template1 postgres; do
+    load_extensions "${database}"
+  done
+}
+
 load_extensions() {
   local database=${1?missing argument}
 
@@ -313,7 +325,8 @@ load_extensions() {
   fi
 
   for extension in $(awk -F',' '{for (i = 1 ; i <= NF ; i++) print $i}' <<< "${DB_EXTENSION}"); do
-    echo "‣ Loading ${extension} extension..."
+    [[ -z ${extension} ]] && continue
+    echo "‣ Loading ${extension} extension on ${database}..."
     psql -U ${PG_USER} -d ${database} -c "CREATE EXTENSION IF NOT EXISTS ${extension};" >/dev/null 2>&1
   done
 }
@@ -375,6 +388,7 @@ configure_postgresql() {
   exec_as_postgres ${PG_BINDIR}/pg_ctl -D ${PG_DATADIR} -w start >/dev/null
 
   create_user
+  enable_default_extensions
   create_database
   create_replication_user
 
