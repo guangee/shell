@@ -41,32 +41,32 @@ docker exec -it postgresql sudo -u postgres psql
 ```yaml
 services:
   postgresql:
-    restart: always
-    image: guangee/postgresql:17
+    restart: always          # 容器退出时自动重启（always=总是重启）
+    image: guangee/postgresql:17  # 使用的镜像名称与标签
     ports:
-      - "5432:5432"
+      - "5432:5432"          # 端口映射：宿主机 5432 → 容器 5432
     environment:
-      DEBUG: "false"
+      DEBUG: "false"         # 是否开启 bash 调试输出（true 时 entrypoint 加 set -x）
 
-      PG_PASSWORD: ""
-      DB_USER: ""
-      DB_PASS: ""
-      DB_NAME: ""
-      DB_TEMPLATE: ""
+      PG_PASSWORD: ""        # postgres 超级用户密码（仅首次初始化数据目录时生效）
+      DB_USER: ""            # 启动时自动创建的数据库用户名
+      DB_PASS: ""            # DB_USER 对应的密码（必填，否则创建用户会失败）
+      DB_NAME: ""            # 启动时自动创建的数据库名，多个用逗号分隔
+      DB_TEMPLATE: ""        # 建库使用的模板库，默认 template1；留空则使用内置默认值
 
-      # 默认 postgis,vector,pg_trgm；留空可禁用；追加扩展用逗号分隔
-      DB_EXTENSION: "postgis,vector,pg_trgm"
+      DB_EXTENSION: "postgis,vector,pg_trgm"  # 首次初始化时启用的扩展，逗号分隔；留空禁用
 
-      REPLICATION_MODE: ""
-      REPLICATION_USER: ""
-      REPLICATION_PASS: ""
-      REPLICATION_SSLMODE: ""
+      REPLICATION_MODE: ""   # 复制模式：留空=主库；slave=从库；snapshot=快照；backup=备份后退出
+      REPLICATION_USER: ""   # 复制用户名（主库上创建，从库/快照/备份时用于连接主库）
+      REPLICATION_PASS: ""   # 复制用户密码
+      REPLICATION_SSLMODE: "" # 连接主库时的 SSL 模式：disable/prefer/require 等；留空默认 prefer
+    # postgres 启动参数：wal_keep_size=512 主库为复制保留 WAL（MB）；logging_collector=off 日志走 stderr
     command: "--wal_keep_size=512 --logging_collector=off"
     volumes:
-      - postgresql:/var/lib/postgresql
+      - postgresql:/var/lib/postgresql  # 数据持久化目录（库文件、WAL 等）
 
 volumes:
-  postgresql:
+  postgresql:                  # 命名卷，由 Docker 管理存储位置
 ```
 
 按需填写 `environment`，例如：
