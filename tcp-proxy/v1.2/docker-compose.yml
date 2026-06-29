@@ -1,0 +1,20 @@
+services:
+  tcp-proxy:
+    build: .
+    image: tcp-proxy:1.2
+    container_name: tcp-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "3306:3306"
+    environment:
+      # 默认 TCP 透明代理；http(s):// URL 仅用于指定目标，TLS 由客户端与远端直接握手
+      PROXIES: >-
+        443,https://cf.emerald-atelier.com:443;
+        80,http://cf.emerald-atelier.com:80;
+        3306,mysql.example.com:3306
+
+      # 七层 HTTP 反向代理（仅当确实需要 L7 时使用 HTTP_PROXIES 或 l7 前缀）
+      # HTTP_PROXIES: "8080,http://backend.internal:80"
+      # PROXIES: "l7,8080,http://backend.internal:80"
