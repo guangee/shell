@@ -1,0 +1,32 @@
+services:
+  tcp-proxy:
+    build: .
+    image: tcp-proxy:1.1
+    container_name: tcp-proxy
+    restart: unless-stopped
+    ports:
+      # TCP 代理
+      - "3306:3306"
+      - "6379:6379"
+      # HTTP / WebSocket 代理
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      # 统一配置（自动识别类型：URL 为 HTTP，host:port 为 TCP）
+      PROXIES: >-
+        3306,mysql.example.com:3306;
+        6379,192.168.1.10:6379;
+        8080,http://backend.internal:80;
+        8081,http://ws-backend.internal:8080
+
+      # 也可分开配置（与 v1.0 兼容）
+      # TCP_PROXIES: "3306,mysql.example.com:3306;6379,192.168.1.10:6379"
+      # HTTP_PROXIES: "8080,http://backend.internal:80;8081,http://ws-backend.internal:8080"
+
+      # 显式指定类型前缀
+      # PROXIES: "tcp,3306,mysql.example.com:3306;http,8080,http://backend.internal:80"
+
+      # 编号变量
+      # PROXY_1: "tcp,3306,mysql.example.com:3306"
+      # PROXY_2: "http,8080,http://backend.internal:80"
+      # HTTP_PROXY_1: "8081,http://ws-backend.internal:8080"
