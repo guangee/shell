@@ -1,0 +1,23 @@
+services:
+  tcp-proxy:
+    build: .
+    image: tcp-proxy:latest
+    container_name: tcp-proxy
+    restart: unless-stopped
+    ports:
+      # 将容器内监听的本地端口映射到宿主机
+      - "3306:3306"
+      - "6379:6379"
+      - "8080:8080"
+    environment:
+      # 方式一：单变量配置多个代理，用分号分隔
+      # 格式: 本地端口,目标地址:目标端口
+      TCP_PROXIES: >-
+        3306,mysql.example.com:3306;
+        6379,192.168.1.10:6379;
+        8080,backend.internal:80
+
+      # 方式二：编号变量，适合 docker run -e
+      # TCP_PROXY_1: "3306,mysql.example.com:3306"
+      # TCP_PROXY_2: "6379,192.168.1.10:6379"
+      # TCP_PROXY_3: "8080,backend.internal:80"
