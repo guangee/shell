@@ -83,7 +83,7 @@ http_probe() {
   local code
   code="$(
     curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 8 --max-time 15 \
-      -H "Accept: application/vnd.docker.distribution.manifest.v2+json, application/vnd.oci.image.manifest.v1+json, application/vnd.docker.distribution.manifest.list.v2+json" \
+      -H "Accept: application/vnd.docker.distribution.manifest.v2+json, application/vnd.oci.image.manifest.v1+json, application/vnd.docker.distribution.manifest.list.v2+json, application/vnd.oci.image.index.v1+json" \
       "$url" 2>/dev/null || true
   )"
   if [[ "$code" =~ ^[0-9]{3}$ ]]; then
@@ -101,14 +101,6 @@ image_exists_on_proxy() {
 
   echo "经代理检查镜像: ${proxy_image}"
 
-  # runner 多架构 tag 下 HTTP manifests 常误报 404，优先 docker manifest
-  if command -v docker >/dev/null 2>&1; then
-    if docker manifest inspect "$proxy_image" >/dev/null 2>&1; then
-      echo "docker manifest 确认存在"
-      return 0
-    fi
-  fi
-
   http_code="$(http_probe "$proxy_url")"
   http_code="${http_code:-000}"
   if [[ "$http_code" == "200" ]]; then
@@ -118,6 +110,14 @@ image_exists_on_proxy() {
   if [[ "$http_code" == "404" ]]; then
     echo "错误: 代理上不存在镜像 ${IMAGE_REPO}:${tag}" >&2
     return 1
+  fi
+
+  echo "镜像代理 API 不可用 (HTTP ${http_code})，尝试 docker manifest inspect..."
+  if command -v docker >/dev/null 2>&1; then
+    if docker manifest inspect "$proxy_image" >/dev/null 2>&1; then
+      echo "docker manifest 确认存在"
+      return 0
+    fi
   fi
 
   echo "错误: 无法经代理确认镜像 ${IMAGE_REPO}:${tag}" >&2
