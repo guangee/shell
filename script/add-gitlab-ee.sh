@@ -102,7 +102,7 @@ http_probe() {
   local code
   code="$(
     curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 8 --max-time 15 \
-      -H "Accept: application/vnd.docker.distribution.manifest.v2+json, application/vnd.oci.image.manifest.v1+json, application/vnd.docker.distribution.manifest.list.v2+json" \
+      -H "Accept: application/vnd.docker.distribution.manifest.v2+json, application/vnd.oci.image.manifest.v1+json, application/vnd.docker.distribution.manifest.list.v2+json, application/vnd.oci.image.index.v1+json" \
       "$url" 2>/dev/null || true
   )"
   if [[ "$code" =~ ^[0-9]{3}$ ]]; then
@@ -144,22 +144,63 @@ ee_image_exists() {
   return 1
 }
 
+# 获取 GitLab Container Registry 匿名 pull token
+gitlab_registry_token() {
+  local repo_path="$1"
+  local token
+  token="$(
+    curl -sS --connect-timeout 8 --max-time 15 \
+      "https://gitlab.com/jwt/auth?service=container_registry&scope=repository:${repo_path}:pull" \
+      2>/dev/null \
+      | sed -n 's/.*"token"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p'
+  )"
+  if [[ -n "$token" ]]; then
+    echo "$token"
+    return 0
+  fi
+  return 1
+}
+
 # zoekt 官方镜像在 registry.gitlab.com，不在 Docker Hub 代理上
 zoekt_image_exists() {
   local tag="$1"
   local image="${ZOEKT_IMAGE_REPO}:${tag}"
+  local repo_path="gitlab-org/build/cng/gitlab-zoekt"
+  local manifest_url="https://registry.gitlab.com/v2/${repo_path}/manifests/${tag}"
+  local token http_code
 
   echo "检查 gitlab-zoekt: ${image}"
 
-  if ! command -v docker >/dev/null 2>&1; then
-    echo "错误: 检查 zoekt 需要 docker（镜像不在 Hub 代理上）" >&2
-    echo "提示: 可加 --skip-check 跳过检查" >&2
-    return 1
+  if token="$(gitlab_registry_token "$repo_path")"; then
+    http_code="$(
+      curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 8 --max-time 15 \
+        -H "Authorization: Bearer ${token}" \
+        -H "Accept: application/vnd.docker.distribution.manifest.v2+json, application/vnd.oci.image.manifest.v1+json, application/vnd.docker.distribution.manifest.list.v2+json, application/vnd.oci.image.index.v1+json" \
+        "$manifest_url" 2>/dev/null || true
+    )"
+    http_code="${http_code:-000}"
+    if [[ "$http_code" == "200" ]]; then
+      echo "registry.gitlab.com 确认 gitlab-zoekt 存在"
+      return 0
+    fi
+    if [[ "$http_code" == "404" ]]; then
+      echo "错误: 不存在镜像 ${image}" >&2
+      return 1
+    fi
+    echo "registry.gitlab.com API 不可用 (HTTP ${http_code})，尝试 docker manifest inspect..."
+  else
+    echo "无法获取 GitLab Registry token，尝试 docker manifest inspect..."
   fi
 
-  if docker manifest inspect "$image" >/dev/null 2>&1; then
-    echo "docker manifest 确认 gitlab-zoekt 存在"
-    return 0
+  if command -v docker >/dev/null 2>&1; then
+    if docker manifest inspect "$image" >/dev/null 2>&1; then
+      echo "docker manifest 确认 gitlab-zoekt 存在"
+      return 0
+    fi
+  else
+    echo "错误: docker 不可用，且无法经 API 确认镜像" >&2
+    echo "提示: 可加 --skip-check 跳过检查" >&2
+    return 1
   fi
 
   echo "错误: 无法确认镜像 ${image}" >&2
