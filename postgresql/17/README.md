@@ -6,16 +6,18 @@
 
 ## 构建与发布
 
-推送到 `master` 分支且 `postgresql/17/Dockerfile` 有变更时，GitHub Actions 会自动构建并推送到 Docker Hub，镜像标签为：
+本镜像发布名：
 
 ```
-guangee/postgresql:17
+zziaguan/postgresql:17
 ```
+
+推送到 `master` 分支且 `postgresql/17/Dockerfile` 有变更时，GitHub Actions 会自动构建并推送到 Docker Hub。
 
 本地手动构建：
 
 ```bash
-# 在项目根目录
+# 在项目根目录执行；第一个参数为本地标签，第二个为 Dockerfile 所在目录
 ./build.sh postgresql:17 postgresql/17
 ```
 
@@ -25,12 +27,13 @@ guangee/postgresql:17
 docker run --name postgresql -d --restart always \
   --publish 5432:5432 \
   --volume postgresql:/var/lib/postgresql \
-  guangee/postgresql:17
+  zziaguan/postgresql:17   # 私有镜像：PostgreSQL 17 + PostGIS / pgvector / pg_trgm
 ```
 
 进入 psql：
 
 ```bash
+# 以 postgres 系统用户进入交互式 psql
 docker exec -it postgresql sudo -u postgres psql
 ```
 
@@ -42,7 +45,7 @@ docker exec -it postgresql sudo -u postgres psql
 services:
   postgresql:
     restart: always          # 容器退出时自动重启（always=总是重启）
-    image: guangee/postgresql:17  # 使用的镜像名称与标签
+    image: zziaguan/postgresql:17  # 私有镜像：PostgreSQL 17 + PostGIS / pgvector / pg_trgm
     ports:
       - "5432:5432"          # 端口映射：宿主机 5432 → 容器 5432
     environment:
@@ -86,7 +89,7 @@ volumes:
 ```bash
 docker run --name postgresql -d \
   --volume /srv/docker/postgresql:/var/lib/postgresql \
-  guangee/postgresql:17
+  zziaguan/postgresql:17   # 数据目录挂到宿主机后，删容器不丢库
 ```
 
 ## 创建数据库与用户
@@ -126,6 +129,7 @@ SELECT extname, extversion FROM pg_extension ORDER BY extname;
 等价于 MySQL 初始化脚本，**仅首次初始化数据卷时生效**：
 
 ```bash
+# 以下环境变量仅在数据目录首次初始化时生效
 docker run --name postgresql -d --restart always \
   --publish 5432:5432 \
   --env 'PG_PASSWORD=postgres_root_pass' \
@@ -133,7 +137,7 @@ docker run --name postgresql -d --restart always \
   --env 'DB_USER=book_view_uat' \
   --env 'DB_PASS=book_view_uatAa@' \
   --volume postgresql:/var/lib/postgresql \
-  guangee/postgresql:17
+  zziaguan/postgresql:17
 ```
 
 docker-compose 对应配置：
@@ -346,7 +350,7 @@ docker run --name postgresql -d --restart always \
   --env 'DB_USER=app' --env 'DB_PASS=apppass' \
   --env 'DB_NAME=mydb' \
   --volume postgresql:/var/lib/postgresql \
-  guangee/postgresql:17
+  zziaguan/postgresql:17   # 首次初始化时默认启用 postgis、vector、pg_trgm
 ```
 
 追加 contrib 扩展（首次初始化时生效）：
@@ -356,7 +360,7 @@ docker run --name postgresql -d \
   --env 'DB_NAME=db1' \
   --env 'DB_EXTENSION=postgis,vector,pg_trgm,pg_stat_statements,pgcrypto' \
   --volume postgresql:/var/lib/postgresql \
-  guangee/postgresql:17
+  zziaguan/postgresql:17
 ```
 
 ## 目录说明
