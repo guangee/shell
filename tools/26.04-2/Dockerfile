@@ -2,8 +2,10 @@ FROM ubuntu:26.04
 USER root
 
 ENV LANG                            C.UTF-8
+ENV DEBIAN_FRONTEND=noninteractive
+# CI/工具镜像允许系统级 pip 安装（绕过 PEP 668）
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
 
-RUN DEBIAN_FRONTEND=noninteractive
 RUN echo "Asia/Shanghai" > /etc/timezone
 # 修改欢迎命令
 COPY .bashrc /root/.bashrc
