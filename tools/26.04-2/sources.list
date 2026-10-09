@@ -1,0 +1,10 @@
+deb http://mirrors.aliyun.com/ubuntu/ resolute main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ resolute main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ resolute-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ resolute-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ resolute-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ resolute-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ resolute-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ resolute-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ resolute-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ resolute-backports main restricted universe multiverse
