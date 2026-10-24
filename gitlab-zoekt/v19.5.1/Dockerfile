@@ -1,0 +1,1 @@
+FROM registry.gitlab.com/gitlab-org/build/cng/gitlab-zoekt:v19.5.1
