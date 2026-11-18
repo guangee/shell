@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import platform
 import subprocess
 import sys
@@ -148,6 +149,32 @@ def list_tags_with_digest(
         seen.add(tag)
         tags.append((tag, pick_source_digest(item, arch)))
     return tags
+
+
+def login_registry(registry: str, username: str, password: str, *, dry_run: bool) -> None:
+    """在访问目标仓库之前登录。密码只通过 stdin 传入，不出现在命令行。"""
+    if not username or not password:
+        raise RuntimeError(
+            "缺少阿里云登录信息，请设置环境变量 DOCKER_USERNAME_ALI 和 DOCKER_PASSWORD_ALI"
+        )
+    if dry_run:
+        log(f"[dry-run] docker login --username {username} --password-stdin {registry}")
+        return
+    log(f"[exec] docker login --username {username} --password-stdin {registry}")
+    try:
+        result = subprocess.run(
+            ["docker", "login", "--username", username, "--password-stdin", registry],
+            input=password,
+            text=True,
+            capture_output=True,
+            timeout=DOCKER_CMD_TIMEOUT,
+        )
+    except FileNotFoundError as exc:
+        raise RuntimeError("未找到 docker 命令，请先安装并确保在 PATH 中") from exc
+    if result.returncode != 0:
+        detail = (result.stderr or result.stdout or "").strip()
+        raise RuntimeError(f"登录 {registry} 失败: {detail}")
+    log(f"[info] 已登录 {registry}")
 
 
 def run_docker(
@@ -335,6 +362,19 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         f"目标: {TARGET_REGISTRY}/{TARGET_NAMESPACE}/*  "
         f"平台: linux/{arch}"
     )
+
+    # 查询目标 digest 和 push 都依赖这次登录，必须放在同步之前。
+    if not args.list:
+        try:
+            login_registry(
+                TARGET_REGISTRY,
+                os.environ.get("DOCKER_USERNAME_ALI", ""),
+                os.environ.get("DOCKER_PASSWORD_ALI", ""),
+                dry_run=args.dry_run,
+            )
+        except RuntimeError as exc:
+            log(f"[error] {exc}")
+            return 1
 
     try:
         images = collect_images(SOURCE_NAMESPACE, args.repo, args.tag, arch)
