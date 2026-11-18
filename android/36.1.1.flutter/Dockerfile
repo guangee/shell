@@ -20,9 +20,6 @@ ENV LANG=C.UTF-8
 ENV ANDROID_HOME=/opt/android
 ENV ANDROID_SDK_ROOT=/opt/android
 
-COPY sources.list /etc/apt/sources.list
-COPY .bashrc /root/.bashrc
-
 RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends \
         openjdk-17-jdk-headless \
@@ -77,3 +74,6 @@ RUN git clone --depth 1 --branch "${FLUTTER_BRANCH}" https://github.com/flutter/
     && flutter precache --android
 
 WORKDIR /workspace
+
+COPY sources.list /etc/apt/sources.list
+COPY .bashrc /root/.bashrc
