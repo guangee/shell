@@ -210,23 +210,51 @@ def run_docker(
     return result
 
 
-def get_remote_digest(image_ref: str) -> Optional[str]:
-    """查询远端镜像 digest；镜像不存在或查询失败时返回 None。"""
+def image_missing(detail: str) -> bool:
+    text = detail.lower()
+    return any(token in text for token in ("not found", "manifest unknown", "name unknown"))
+
+
+def get_remote_digest(image_ref: str, arch: str, os_name: str = "linux") -> Optional[str]:
+    """查询远端镜像 digest。
+
+    buildx v0.37 起 imagetools 模板没有顶层 .Digest，要用清单 JSON。
+    多架构镜像取当前平台的 manifest digest，和 Docker Hub 的平台 digest 对齐。
+    镜像确实不存在时返回 None；鉴权、模板或网络错误直接抛出，避免误判成缺失后全量重拉。
+    """
     result = run_docker(
         [
             "buildx",
             "imagetools",
             "inspect",
             "--format",
-            "{{.Digest}}",
+            "{{json .}}",
             image_ref,
         ],
         check=False,
         capture=True,
     )
+    detail = (result.stderr or result.stdout or "").strip()
     if result.returncode != 0:
-        return None
-    return normalize_digest((result.stdout or "").strip())
+        if image_missing(detail):
+            return None
+        raise RuntimeError(f"查询目标 digest 失败: {image_ref}: {detail}")
+
+    try:
+        payload = json.loads(result.stdout or "")
+    except json.JSONDecodeError as exc:
+        raise RuntimeError(f"解析目标 digest 失败: {image_ref}: {exc}") from exc
+
+    manifest = payload.get("manifest") or {}
+    for item in manifest.get("manifests") or []:
+        platform = item.get("platform") or {}
+        item_os = platform.get("os") or os_name
+        if platform.get("architecture") != arch or item_os != os_name:
+            continue
+        digest = normalize_digest(item.get("digest"))
+        if digest:
+            return digest
+    return normalize_digest(manifest.get("digest"))
 
 
 def needs_sync(
@@ -234,10 +262,11 @@ def needs_sync(
     target_ref_name: str,
     *,
     force: bool,
+    arch: str,
 ) -> Tuple[bool, str]:
     if force:
         return True, "强制同步"
-    target_digest = get_remote_digest(target_ref_name)
+    target_digest = get_remote_digest(target_ref_name, arch)
     if target_digest is None:
         return True, "目标不存在"
     if source_digest is None:
@@ -406,7 +435,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         log(f"\n[{idx}/{len(images)}] 检查 {src} -> {dst}")
 
         try:
-            do_sync, reason = needs_sync(source_digest, dst, force=args.force)
+            do_sync, reason = needs_sync(
+                source_digest,
+                dst,
+                force=args.force,
+                arch=arch,
+            )
             if not do_sync:
                 log(f"[skip] {reason}")
                 skipped += 1
