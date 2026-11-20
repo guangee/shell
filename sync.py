@@ -5,7 +5,9 @@
   zziaguan/node:14
     -> registry.cn-zhangjiakou.aliyuncs.com/zziaguan/node:14
 
-已同步且 digest 一致的镜像会自动跳过；源 digest 变化时会重新同步。
+先拉取 https://image.coding-space.cn/api/acr-sync/images 中已同步记录，
+命中的镜像直接跳过，不再逐个检查远端 digest。
+未命中的镜像再按 digest 比对；源 digest 变化时会重新同步。
 
 用法:
   python3 sync.py                 # 同步全部仓库/标签
@@ -13,7 +15,7 @@
   python3 sync.py --list          # 只列出镜像
   python3 sync.py --repo node     # 只同步指定仓库
   python3 sync.py --tag 14        # 只同步指定标签
-  python3 sync.py --force         # 忽略 digest 比对，强制同步
+  python3 sync.py --force         # 忽略已同步记录和 digest 比对，强制同步
   python3 sync.py --cleanup       # push 成功后删除本地源/目标镜像
 
 推送前请先登录阿里云:
@@ -38,6 +40,7 @@ SOURCE_NAMESPACE = "zziaguan"
 TARGET_REGISTRY = "registry.cn-zhangjiakou.aliyuncs.com"
 TARGET_NAMESPACE = "zziaguan"
 HUB_API = "https://hub.docker.com/v2"
+SYNCED_IMAGES_API = "https://image.coding-space.cn/api/acr-sync/images"
 PAGE_SIZE = 100
 DEFAULT_TIMEOUT = 60
 DOCKER_CMD_TIMEOUT = None  # None = 不限制 docker 命令超时
@@ -320,6 +323,39 @@ def collect_images(
     return images
 
 
+def list_known_synced_images() -> set[str]:
+    """读取已同步镜像记录，格式如 zziaguan/android:36.1.1.flutter。
+
+    接口失败时返回空集，退回逐个检查。
+    """
+    try:
+        payload = http_get_json(SYNCED_IMAGES_API)
+    except HubError as exc:
+        log(f"[warn] 获取已同步镜像列表失败，将退回逐个检查: {exc}")
+        return set()
+
+    data = payload.get("data") or {}
+    images = data.get("images") or []
+    known = {item.strip() for item in images if isinstance(item, str) and item.strip()}
+    log(f"[info] 已同步记录 {data.get('total', len(known))} 个镜像")
+    return known
+
+
+def filter_pending_images(
+    images: List[Tuple[str, str, Optional[str]]],
+    known: set[str],
+) -> Tuple[List[Tuple[str, str, Optional[str]]], int]:
+    """去掉已同步记录中的镜像，返回待处理列表与跳过数量。"""
+    pending: List[Tuple[str, str, Optional[str]]] = []
+    skipped = 0
+    for repo, tag, digest in images:
+        if source_ref(repo, tag) in known:
+            skipped += 1
+            continue
+        pending.append((repo, tag, digest))
+    return pending, skipped
+
+
 def target_ref(repo: str, tag: str) -> str:
     return f"{TARGET_REGISTRY}/{TARGET_NAMESPACE}/{repo}:{tag}"
 
@@ -347,7 +383,7 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument(
         "--force",
         action="store_true",
-        help="忽略 digest 比对，强制同步全部镜像",
+        help="忽略已同步记录和 digest 比对，强制同步全部镜像",
     )
     parser.add_argument(
         "--cleanup",
@@ -392,19 +428,6 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         f"平台: linux/{arch}"
     )
 
-    # 查询目标 digest 和 push 都依赖这次登录，必须放在同步之前。
-    if not args.list:
-        try:
-            login_registry(
-                TARGET_REGISTRY,
-                os.environ.get("DOCKER_USERNAME_ALI", ""),
-                os.environ.get("DOCKER_PASSWORD_ALI", ""),
-                dry_run=args.dry_run,
-            )
-        except RuntimeError as exc:
-            log(f"[error] {exc}")
-            return 1
-
     try:
         images = collect_images(SOURCE_NAMESPACE, args.repo, args.tag, arch)
     except HubError as exc:
@@ -416,17 +439,40 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         return 0
 
     log(f"[info] 共扫描到 {len(images)} 个镜像")
+
+    known_skipped = 0
+    if not args.force:
+        known = list_known_synced_images()
+        images, known_skipped = filter_pending_images(images, known)
+        if known_skipped:
+            log(f"[info] 跳过已同步镜像 {known_skipped} 个，不再检查")
+
+    log(f"[info] 待处理 {len(images)} 个镜像")
     for repo, tag, digest in images:
         src = source_ref(repo, tag)
         dst = target_ref(repo, tag)
         digest_text = digest or "unknown"
         log(f"  {src}  =>  {dst}  ({digest_text})")
 
-    if args.list:
+    if args.list or not images:
+        if not images:
+            log("[info] 没有需要同步的镜像")
         return 0
 
+    # 查询目标 digest 和 push 都依赖这次登录；已同步镜像已过滤完，再登录。
+    try:
+        login_registry(
+            TARGET_REGISTRY,
+            os.environ.get("DOCKER_USERNAME_ALI", ""),
+            os.environ.get("DOCKER_PASSWORD_ALI", ""),
+            dry_run=args.dry_run,
+        )
+    except RuntimeError as exc:
+        log(f"[error] {exc}")
+        return 1
+
     synced = 0
-    skipped = 0
+    skipped = known_skipped
     failed: List[str] = []
 
     for idx, (repo, tag, source_digest) in enumerate(images, 1):
