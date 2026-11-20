@@ -65,7 +65,7 @@ ENV PATH="/root/.sdkman/candidates/java/current/bin:${MAVEN_HOME}/bin:${PATH}"
 
 RUN set -eux; \
     mkdir -p /opt/maven; \
-    wget -q "https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -O /tmp/maven.tar.gz; \
+    wget -q "https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/${MAVEN_VERSION}/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -O /tmp/maven.tar.gz; \
     tar -xzf /tmp/maven.tar.gz -C /opt/maven; \
     rm -f /tmp/maven.tar.gz
 
