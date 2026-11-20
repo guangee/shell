@@ -98,7 +98,7 @@ NODEBIN
 COPY test.sh /root/test.sh
 RUN chmod +x /root/test.sh
 
-# 构建结束前：切换各 JDK / Node 并打印版本，失败则镜像构建失败
+# 构建结束前：切换各 JDK / Node 并打印版本，失败则镜像构建失败!
 RUN /root/test.sh
 
 WORKDIR /root
