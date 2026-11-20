@@ -6,8 +6,6 @@
     -> registry.cn-zhangjiakou.aliyuncs.com/zziaguan/node:14
 
 已同步且 digest 一致的镜像会自动跳过；源 digest 变化时会重新同步。
-接口 https://image.coding-space.cn/api/acr-sync/images 中记录的镜像会直接跳过，
-不再逐镜像查询目标 digest（用 --force 可忽略该列表强制同步）。
 
 用法:
   python3 sync.py                 # 同步全部仓库/标签
@@ -15,9 +13,8 @@
   python3 sync.py --list          # 只列出镜像
   python3 sync.py --repo node     # 只同步指定仓库
   python3 sync.py --tag 14        # 只同步指定标签
-  python3 sync.py --force         # 忽略接口列表与 digest 比对，强制同步
+  python3 sync.py --force         # 忽略 digest 比对，强制同步
   python3 sync.py --cleanup       # push 成功后删除本地源/目标镜像
-  python3 sync.py --no-skip-synced  # 不读取接口列表，退回逐镜像 digest 比对
 
 推送前请先登录阿里云:
   docker login registry.cn-zhangjiakou.aliyuncs.com
@@ -35,13 +32,12 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from typing import Iterator, List, Optional, Sequence, Set, Tuple
+from typing import Iterator, List, Optional, Sequence, Tuple
 
 SOURCE_NAMESPACE = "zziaguan"
 TARGET_REGISTRY = "registry.cn-zhangjiakou.aliyuncs.com"
 TARGET_NAMESPACE = "zziaguan"
 HUB_API = "https://hub.docker.com/v2"
-SYNCED_IMAGES_API = "https://image.coding-space.cn/api/acr-sync/images"
 PAGE_SIZE = 100
 DEFAULT_TIMEOUT = 60
 DOCKER_CMD_TIMEOUT = None  # None = 不限制 docker 命令超时
@@ -85,37 +81,6 @@ def paginate(url: str) -> Iterator[dict]:
         for item in data.get("results") or []:
             yield item
         next_url = data.get("next")
-
-
-def fetch_synced_images(api_url: str) -> Set[str]:
-    """拉取接口中已同步的镜像，统一为 namespace/repo:tag 形式。
-
-    接口形如 {"data": {"images": ["zziaguan/node:14", ...]}}。
-    这里做 strip 与去重；大小写不做归一化，因为 tag 区分大小写。
-    """
-    data = http_get_json(api_url)
-    payload = data.get("data") or {}
-    images = payload.get("images") or []
-    result: Set[str] = set()
-    for item in images:
-        if not isinstance(item, str):
-            continue
-        name = item.strip()
-        if name:
-            result.add(name)
-    return result
-
-
-def already_synced_set(images: Sequence[str], source_namespace: str) -> Set[str]:
-    """把接口镜像名扩成多种可匹配形式，兼容带/带不带命名空间。"""
-    result: Set[str] = set()
-    for name in images:
-        result.add(name)
-        prefix = f"{source_namespace}/"
-        if name.startswith(prefix):
-            # zziaguan/node:14 -> node:14，便于按 repo:tag 兜底匹配
-            result.add(name[len(prefix):])
-    return result
 
 
 def host_arch() -> str:
@@ -385,16 +350,6 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
         help="忽略 digest 比对，强制同步全部镜像",
     )
     parser.add_argument(
-        "--no-skip-synced",
-        action="store_true",
-        help="不从接口读取已同步镜像列表，退回逐个查询 digest 判断",
-    )
-    parser.add_argument(
-        "--synced-images-api",
-        default=SYNCED_IMAGES_API,
-        help=f"已同步镜像列表接口 (默认: {SYNCED_IMAGES_API})",
-    )
-    parser.add_argument(
         "--cleanup",
         action="store_true",
         help="push 成功后删除本地源镜像和目标镜像，节省磁盘",
@@ -470,21 +425,6 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     if args.list:
         return 0
 
-    # 接口中已同步的镜像直接跳过，不再逐镜像查询目标 digest。
-    # 接口不可用 / --no-skip-synced / --force 时退回原来的 digest 比对。
-    synced_set: Set[str] = set()
-    skip_enabled = not args.no_skip_synced and not args.force
-    if skip_enabled:
-        try:
-            synced_set = already_synced_set(
-                fetch_synced_images(args.synced_images_api),
-                SOURCE_NAMESPACE,
-            )
-            log(f"[info] 已同步列表: {len(synced_set)} 条 (来自 {args.synced_images_api})")
-        except Exception as exc:
-            log(f"[warn] 获取已同步镜像列表失败，退回逐镜像 digest 比对: {exc}")
-            skip_enabled = False
-
     synced = 0
     skipped = 0
     failed: List[str] = []
@@ -495,13 +435,6 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         log(f"\n[{idx}/{len(images)}] 检查 {src} -> {dst}")
 
         try:
-            if skip_enabled and (
-                src in synced_set or f"{repo}:{tag}" in synced_set
-            ):
-                log(f"[skip] 接口记录已同步: {src}")
-                skipped += 1
-                continue
-
             do_sync, reason = needs_sync(
                 source_digest,
                 dst,
